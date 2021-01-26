@@ -15,7 +15,10 @@ public class Reursion {
 //		}
 
 //		System.out.println(getPerm("abc"));
-		Math.exp(55);
+//		Math.exp(55);
+//		System.out.println(getKPC("112"));
+//		System.out.println(getBoardPaths(0, 10));
+		System.out.println(getMazePathsDiagonalWmultiSteps(0, 0, 2, 2));
 	}
 
 	public static void printDecreasing(int n) {
@@ -224,6 +227,184 @@ public class Reursion {
 				String ms = rs.substring(0, i) + ch + rs.substring(i);
 				mr.add(ms);
 			}
+		}
+
+		return mr;
+	}
+
+	public static ArrayList<String> getKPC(String s) {
+
+		if (s.length() == 0) {
+			ArrayList<String> br = new ArrayList<String>();
+			br.add("");
+			return br;
+		}
+
+		char ch = s.charAt(0);
+		String ros = s.substring(1);
+		ArrayList<String> rr = getKPC(ros);
+		ArrayList<String> mr = new ArrayList<String>();
+
+		String choice = getChoice(ch);
+		for (String rs : rr) {
+			for (int i = 0; i < choice.length(); i++) {
+				String ms = choice.charAt(i) + rs;
+				mr.add(ms);
+			}
+		}
+
+		return mr;
+	}
+
+	public static String getChoice(char key) {
+		if (key == '1') {
+			return "abc";
+		} else if (key == '2') {
+			return "def";
+		} else if (key == '3') {
+			return "ghi";
+		} else if (key == '4') {
+			return "jkl";
+		} else if (key == '5') {
+			return "mno";
+		} else if (key == '6') {
+			return "pqr";
+		} else if (key == '7') {
+			return "stu";
+		} else if (key == '8') {
+			return "vwx";
+		} else if (key == '9') {
+			return "yz";
+		} else if (key == '0') {
+			return "abc";
+		}
+
+		return "";
+	}
+
+	public static ArrayList<String> getBoardPaths(int curr, int end) {
+		if (curr == end) {
+			ArrayList<String> br = new ArrayList<>();
+			br.add("\n");
+			return br;
+		}
+
+		if (curr > end) {
+			ArrayList<String> br = new ArrayList<>();
+			return br;
+		}
+
+		ArrayList<String> mr = new ArrayList<String>();
+
+		for (int dice = 1; dice <= 6; dice++) {
+			ArrayList<String> rrdice = getBoardPaths(curr + dice, end);
+			for (String rs : rrdice) {
+				mr.add(dice + rs);
+			}
+		}
+
+		return mr;
+	}
+
+	public static ArrayList<String> getMazePaths(int cr, int cc, int er, int ec) {
+
+		if (cr == er && cc == ec) {
+			ArrayList<String> br = new ArrayList<>();
+			br.add("\n");
+			return br;
+		}
+
+		if (cr > er || cc > ec) {
+			ArrayList<String> br = new ArrayList<>();
+			return br;
+		}
+
+		ArrayList<String> mr = new ArrayList<String>();
+		ArrayList<String> rrh = getMazePaths(cr, cc + 1, er, ec);
+		for (String rs : rrh) {
+			mr.add("H" + rs);
+		}
+
+		ArrayList<String> rrv = getMazePaths(cr + 1, cc, er, ec);
+		for (String rs : rrv) {
+			mr.add("V" + rs);
+		}
+
+		return mr;
+	}
+
+	public static ArrayList<String> getMazePathsDiagonal(int cr, int cc, int er, int ec) {
+
+		if (cr == er && cc == ec) {
+			ArrayList<String> br = new ArrayList<>();
+			br.add("\n");
+			return br;
+		}
+
+		if (cr > er || cc > ec) {
+			ArrayList<String> br = new ArrayList<>();
+			return br;
+		}
+
+		ArrayList<String> mr = new ArrayList<String>();
+		ArrayList<String> rrh = getMazePathsDiagonal(cr, cc + 1, er, ec);
+		for (String rs : rrh) {
+			mr.add("H" + rs);
+		}
+
+		ArrayList<String> rrv = getMazePathsDiagonal(cr + 1, cc, er, ec);
+		for (String rs : rrv) {
+			mr.add("V" + rs);
+		}
+
+		ArrayList<String> rrd = getMazePathsDiagonal(cr + 1, cc + 1, er, ec);
+		for (String rs : rrd) {
+			mr.add("D" + rs);
+		}
+
+		return mr;
+	}
+
+	public static ArrayList<String> getMazePathsDiagonalWmultiSteps(int cr, int cc, int er, int ec) {
+
+		if (cr == er && cc == ec) {
+			ArrayList<String> br = new ArrayList<>();
+			br.add("\n");
+			return br;
+		}
+
+		if (cr > er || cc > ec) {
+			ArrayList<String> br = new ArrayList<>();
+			return br;
+		}
+
+		ArrayList<String> mr = new ArrayList<String>();
+
+		int move = 1;
+		while (move <= ec) {
+			ArrayList<String> rrh = getMazePathsDiagonalWmultiSteps(cr, cc + move, er, ec);
+			for (String rs : rrh) {
+				mr.add("H" + move + rs);
+			}
+			move++;
+		}
+
+		move = 1;
+		while (move <= er) {
+			ArrayList<String> rrv = getMazePathsDiagonalWmultiSteps(cr + move, cc, er, ec);
+			for (String rs : rrv) {
+				mr.add("V" + move + rs);
+			}
+			move++;
+		}
+
+		move = 1;
+		while (move <= er && move <= ec) {
+			ArrayList<String> rrd = getMazePathsDiagonalWmultiSteps(cr + move, cc + move, er, ec);
+			for (String rs : rrd) {
+				mr.add("D" + move + rs);
+			}
+			move++;
 		}
 
 		return mr;
