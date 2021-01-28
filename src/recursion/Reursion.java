@@ -6,7 +6,7 @@ public class Reursion {
 
 	public static void main(String[] args) {
 //		System.out.println(powerBtr(2, 10));
-		int[] arr = { 50, 13, 29, 50, 89, 12, 50 };
+//		int[] arr = { 50, 13, 29, 50, 89, 12, 50 };
 //		printReverseArray(arr, 0);
 //		System.out.println(lastIndex(arr, 0, 50));
 //		int[] temp = allIndices(arr, 0, 50, 0);
@@ -14,11 +14,17 @@ public class Reursion {
 //			System.out.println(t);
 //		}
 
-//		System.out.println(getPerm("abc"));
+//		System.out.println(getSS("abc"));
 //		Math.exp(55);
 //		System.out.println(getKPC("112"));
 //		System.out.println(getBoardPaths(0, 10));
-		System.out.println(getMazePathsDiagonalWmultiSteps(0, 0, 2, 2));
+//		System.out.println(getMazePathsDiagonalWmultiSteps(0, 0, 2, 2));
+//		printPermutations("abc", "");
+//		printKPC("12", "");
+//		int[] arr = { 10, 20, 30, 40, 5, 11, 6, 9 };
+//		printTargetSS(arr, 0, 60, "");
+		int[] arr = {1,2,3,4};
+		printSplitArray(arr, 0, 0, 0, "", "");
 	}
 
 	public static void printDecreasing(int n) {
@@ -410,4 +416,72 @@ public class Reursion {
 		return mr;
 	}
 
+	public static void printSS(String ques, String ans) {
+
+		if (ques.length() == 0) {
+			System.out.println(ans);
+			return;
+		}
+		char ch = ques.charAt(0);
+		String roq = ques.substring(1);
+
+		printSS(roq, ans + ch);
+		printSS(roq, ans);
+	}
+
+	public static void printPermutations(String ques, String ans) {
+		if (ques.length() == 0) {
+			System.out.println(ans);
+			return;
+		}
+		for (int i = 0; i < ques.length(); i++) {
+			char ch = ques.charAt(i);
+			String roq = ques.substring(0, i) + ques.substring(i + 1);
+			printPermutations(roq, ans + ch);
+		}
+	}
+
+	public static void printKPC(String ques, String ans) {
+		if (ques.length() == 0) {
+			System.out.println(ans);
+			return;
+		}
+		char ch = ques.charAt(0);
+		String roq = ques.substring(1);
+		String code = getChoice(ch);
+		for (int i = 0; i < code.length(); i++) {
+			printKPC(roq, ans + code.charAt(i));
+		}
+	}
+
+	public static void printTargetSS(int[] arr, int vidx, int target, String asf) {
+		if (vidx == arr.length) {
+			if (target == 0) {
+				System.out.println(asf);
+			}
+
+			return;
+		}
+		printTargetSS(arr, vidx + 1, target - arr[vidx], asf + "\t" + arr[vidx]);
+		printTargetSS(arr, vidx + 1, target, asf);
+	}
+
+	public static void printSplitArray(int[] arr, int vidx, int sg1, int sg2, String g1, String g2) {
+		if (vidx == arr.length) {
+			if (sg1 == sg2) {
+				System.out.println(g1 + " & " + g2);
+			}
+			return;
+		}
+		printSplitArray(arr, vidx + 1, sg1, sg2, g1, g2);
+		printSplitArray(arr, vidx + 1, sg1 + arr[vidx], sg2, g1 + " " + arr[vidx], g2);
+		printSplitArray(arr, vidx + 1, sg1, sg2 + arr[vidx], g1, g2 + " " + arr[vidx]);
+	}
+
 }
+
+//1 4 &  2 3
+//2 3 &  1 4
+
+
+
