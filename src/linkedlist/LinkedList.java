@@ -263,4 +263,133 @@ public class LinkedList {
 		leftHelper = leftHelper.getNext();
 		return true;
 	}
+
+	public void fold() {
+		leftHelper = this.head;
+		fold(this.head, 0);
+	}
+
+	private void fold(Node right, int floor) {
+		if (right == null) {
+			return;
+		}
+		fold(right.getNext(), floor + 1);
+		if (floor > size / 2) {
+			Node currLeftNext = leftHelper.getNext();
+			leftHelper.setNext(right);
+			right.setNext(currLeftNext);
+			leftHelper = currLeftNext;
+		}
+
+		if (floor == size / 2) {
+			right.setNext(null);
+			tail = right;
+		}
+	}
+
+	public void reverseDR() {
+		leftHelper = this.head;
+		reverseDR(this.head, 0);
+	}
+
+	private void reverseDR(Node right, int floor) {
+		if (right == null) {
+			return;
+		}
+		reverseDR(right.getNext(), floor + 1);
+		if (floor >= size / 2) {
+			int temp = leftHelper.getData();
+			leftHelper.setData(right.getData());
+			right.setData(temp);
+			leftHelper = leftHelper.getNext();
+		}
+
+	}
+
+	public int kFromLast(int k) {
+		Node fast = this.head;
+		Node slow = this.head;
+
+		while (k-- > 0) {
+			fast = fast.getNext();
+		}
+
+		while (fast != null) {
+			fast = fast.getNext();
+			slow = slow.getNext();
+		}
+
+		return slow.getData();
+	}
+
+	public static LinkedList mergeTwoSortedLists(LinkedList l1, LinkedList l2) {
+		LinkedList res = new LinkedList();
+		Node temp1 = l1.head;
+		Node temp2 = l2.head;
+		while (temp1 != null && temp2 != null) {
+			int val1 = temp1.getData();
+			int val2 = temp2.getData();
+
+			if (val1 < val2) {
+				res.addLast(val1);
+				temp1 = temp1.getNext();
+			} else {
+				res.addLast(val2);
+				temp2 = temp2.getNext();
+			}
+		}
+
+		while (temp1 != null) {
+			int val1 = temp1.getData();
+
+			res.addLast(val1);
+			temp1 = temp1.getNext();
+		}
+
+		while (temp2 != null) {
+			int val2 = temp2.getData();
+
+			res.addLast(val2);
+			temp2 = temp2.getNext();
+		}
+
+		return res;
+	}
+
+	public void reversePR() {
+		reversePR(head);
+		Node temp = this.tail;
+		this.tail = this.head;
+		this.head = temp;
+		this.tail.setNext(null);
+	}
+
+	private void reversePR(Node node) {
+		if (node.getNext() == null) {
+			return;
+		}
+		reversePR(node.getNext());
+		node.getNext().setNext(node);
+	}
+	
+	public static void makeCycle(LinkedList list) {
+		list.tail.setNext(list.head);
+	}
+
+	public static boolean isCycle(LinkedList list) {
+		Node slow = list.head;
+		Node fast = list.head;
+
+		while (slow != null && fast != null && fast.getNext() != null) {
+			slow = slow.getNext();
+			fast = fast.getNext().getNext();
+			if (slow == fast) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+	
+	
 }
