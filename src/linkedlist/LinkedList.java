@@ -22,12 +22,12 @@ public class LinkedList {
 		this.size++;
 	}
 
-	public void addLast(int data) {
+	public Node addLast(int data) {
 		Node temp = new Node(data);
-		this.addLast(temp);
+		return this.addLast(temp);
 	}
 
-	public void addLast(Node node) {
+	public Node addLast(Node node) {
 		if (head == null) {
 			head = node;
 			tail = node;
@@ -36,6 +36,7 @@ public class LinkedList {
 			tail = node;
 		}
 		this.size++;
+		return tail;
 	}
 
 	public void addAtPos(int data, int pos) throws Exception {
@@ -372,9 +373,9 @@ public class LinkedList {
 		node.getNext().setNext(node);
 	}
 	
-	public static void makeCycle(LinkedList list) {
-		list.tail.setNext(list.head);
-	}
+//	public static void makeCycle(LinkedList list) {
+//		list.tail.setNext(list.head);
+//	}
 
 	public static boolean isCycle(LinkedList list) {
 		Node slow = list.head;
@@ -390,6 +391,96 @@ public class LinkedList {
 
 		return false;
 	}
-	
-	
+
+	public void removeDuplicates() {
+		if(head == null || head.getNext() == null)
+			return;
+		Node curr = head;
+		while(curr != null && curr.getNext() != null) {
+			while(curr.getNext() != null && curr.getData() == curr.getNext().getData()) {
+				curr.setNext(curr.getNext().getNext());
+			}
+			curr = curr.getNext();
+		}
+
+	}
+
+//	public void removeCycle() {
+//		Node curr = head;
+//		boolean isCycle = isCycle(this);
+//		if(!isCycle)
+//			return;
+//		Node slow = head.getNext();
+//		Node fast = head.getNext().getNext();
+//		while (slow != fast) {
+//			slow = slow.getNext();
+//			fast = fast.getNext().getNext();
+//		}
+//		slow = head;
+//		Node prev = fast;
+//		while (slow != fast) {
+//			prev = fast;
+//			slow = slow.getNext();
+//			fast = fast.getNext();
+//		}
+//		prev.setNext(null);
+//	}
+	//1, 2, 3, 4, 5,
+
+	public void reverseInGroup(int k) {
+		Node temp = head;
+		head = reverseInGroup(head, k);
+		tail = temp;
+	}
+
+	public Node reverseInGroup(Node tempHead, int k) {
+		Node curr = tempHead;
+		Node prev = null;
+		Node nextOne = null;
+		int count = 0;
+		//normal reverse code
+		while(count < k && curr != null) {
+			nextOne =  curr.getNext(); //2
+			curr.setNext(prev);
+			prev = curr;
+			curr = nextOne;
+			count++;
+		}
+		if(nextOne != null)
+			//recursive call for next set of nodes
+			tempHead.setNext(reverseInGroup(nextOne, k));
+		return prev;
+	}
+
+	public Node getHead() {
+		return head;
+	}
+
+	public void setHead(Node head) {
+		this.head = head;
+	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public Node getTail() {
+		return tail;
+	}
+
+	public void setTail(Node tail) {
+		this.tail = tail;
+	}
 }
+
+//
+
+// {{{}}}  //yes
+// {{}}}   //false
+// }}{{    //false
+//
+

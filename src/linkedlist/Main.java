@@ -4,11 +4,17 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		LinkedList linkedList = new LinkedList();
-		linkedList.addFirst(0);
-		linkedList.addLast(5);
-		linkedList.addLast(15);
-		linkedList.addLast(35);
-		linkedList.addLast(45);
+		linkedList.addFirst(2);
+		linkedList.addLast(3);
+        linkedList.addLast(4);
+        linkedList.addLast(5);
+		linkedList.addLast(6);
+		linkedList.addLast(7);
+		linkedList.reverseInGroup(3);
+//		linkedList.addLast();
+//		linkedList.addLast(45);
+//		linkedList.addLast(45);
+		linkedList.display();
 //		linkedList.addLast(5);
 //        linkedList.addAtPos(new Node(9), 2);
 //        linkedList.display();
@@ -29,19 +35,19 @@ public class Main {
 //		linkedList.reverseDR();
 //		linkedList.display();
 //		System.out.println(linkedList.kFromLast(3));
-		LinkedList ll = new LinkedList();
-		ll.addLast(10);
-		ll.addLast(20);
-		ll.addLast(30);
-		ll.addLast(40);
-		ll.addLast(50);
-		ll.addLast(60);
-//		LinkedList.mergeTwoSortedLists(linkedList, ll).display();;
-		ll.display();
-//		ll.reversePR();
+//		LinkedList ll = new LinkedList();
+//		ll.addLast(10);
+//		ll.addLast(20);
+//		ll.addLast(30);
+//		ll.addLast(40);
+//		ll.addLast(50);
+//		ll.addLast(60);
+////		LinkedList.mergeTwoSortedLists(linkedList, ll).display();;
 //		ll.display();
-//		LinkedList.makeCycle(ll);
-		System.out.println(LinkedList.isCycle(ll));
+////		ll.reversePR();
+////		ll.display();
+////		LinkedList.makeCycle(ll);
+//		System.out.println(LinkedList.isCycle(ll));
 //		System.out.println(linkedList.isPalindrome());
 	}
 }
