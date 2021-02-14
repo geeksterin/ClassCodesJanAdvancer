@@ -5,6 +5,10 @@ import java.util.ArrayList;
 public class Stack<T> {
 
     ArrayList<T> arrayList = new ArrayList<T>();
+    
+    public int size() {
+    	return this.arrayList.size();
+    }
 
     public void push(T value) {
         arrayList.add(value);
