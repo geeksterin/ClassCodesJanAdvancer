@@ -18,7 +18,7 @@ public class Main {
 //		int val = Util.largestAreaHistogram(arr);
 //		System.out.println(val);
 
-		int val = Util.postFixEvaluation("2+(5-3*6/2)");
+		int val = Util.infixEvaluation("2+(5-3*6/2)");
 		System.out.println(val);
 	}
 }

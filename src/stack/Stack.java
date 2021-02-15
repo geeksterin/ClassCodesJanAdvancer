@@ -2,7 +2,7 @@ package stack;
 
 import java.util.ArrayList;
 
-public class Stack<T> {
+public class Stack<T extends Comparable> {
 
     ArrayList<T> arrayList = new ArrayList<T>();
     
@@ -10,11 +10,22 @@ public class Stack<T> {
     	return this.arrayList.size();
     }
 
+    ArrayList<T> maxStack = new ArrayList<T>();
+
     public void push(T value) {
         arrayList.add(value);
+        if(maxStack.isEmpty()) {
+            maxStack.add(value);
+        } else if(value.compareTo(maxStack.get(maxStack.size()-1))  > 0) {
+            maxStack.add(value);
+        } else {
+            maxStack.add(maxStack.get(maxStack.size()-1));
+        }
     }
 
     public T pop() {
+        if(!maxStack.isEmpty())
+            maxStack.remove(maxStack.size()-1);
         return arrayList.remove(arrayList.size() - 1);
     }
 
@@ -26,4 +37,10 @@ public class Stack<T> {
         return arrayList.isEmpty();
     }
 
+    public T getMax() {
+        return maxStack.get(maxStack.size()-1);
+    }
+
  }
+
+ //5,1,2,3

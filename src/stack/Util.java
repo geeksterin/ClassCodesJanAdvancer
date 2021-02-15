@@ -2,6 +2,7 @@ package stack;
 
 import java.util.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Util {
@@ -201,4 +202,48 @@ public class Util {
 		}
 	}
 
+    public static List<Integer> removeAdjacentDuplicates(List<Integer> list) {
+        Stack<Integer> stack = new Stack<>();
+        //iterate
+        for(int a : list) {
+
+            if(!stack.isEmpty() && stack.peek() == a) {
+                stack.pop();
+            } else {
+                stack.push(a);
+            }
+        }
+        ArrayList result = new ArrayList<Integer>();
+        while (!stack.isEmpty()) {
+            result.add(stack.pop());
+        }
+        Collections.reverse(result);
+        return result;
+    }
+
+    public static void sortUtil(Stack<Integer> stack) {
+
+        if(stack.isEmpty())
+            return;
+
+        int temp = stack.pop();
+        sortUtil(stack);
+        sortInserted(stack, temp);
+    }
+
+    public static void sortInserted(Stack<Integer> stack, int element) {
+
+        if(stack.isEmpty() || element > stack.peek()) {
+            stack.push(element);
+            return;
+        }
+        int temp = stack.pop();
+        sortInserted(stack, element);
+        stack.push(temp);
+    }
+
 }
+
+//5,2,1,3,20,15
+
+//15,20,3,1,2,5
