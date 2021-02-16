@@ -242,8 +242,112 @@ public class Util {
         stack.push(temp);
     }
 
+    public static String infixToPostfix(String infix) {
+
+		StringBuffer result = new StringBuffer();
+		Stack<Character> stack = new Stack<>();
+
+		for(int i=0;i<infix.length();i++) {
+
+			Character c = infix.charAt(i); //B
+
+			if(Character.isLetterOrDigit(c)) {
+				result.append(c);
+			}
+			else if(c == '(') {
+				stack.push(c);
+			}
+			else if(c == ')') {
+				while (!stack.isEmpty() && stack.peek() != '(') {
+					result.append(stack.pop());
+				}
+				stack.pop();
+			}
+			else {
+				while (!stack.isEmpty() && prec(c) <= prec(stack.peek())) {
+					result.append(stack.pop());
+				}
+				stack.push(c);
+			}
+
+		}
+		while (!stack.isEmpty()) {
+			result.append(stack.pop());
+		}
+		return result.toString();
+	}
+
+	public static int prec(Character c) {
+		switch (c) {
+			case '^':
+				return 3;
+			case '/':
+			case '*':
+			case '%':
+				return 2;
+			case '-':
+			case '+':
+				return 1;
+			default:
+				return -1;
+
+		}
+	}
+
+	public static Stack<Interval> mergeIntervals(List<Interval> list) {
+
+		Stack<Interval> result = new Stack<>();
+		for(Interval it : list) {
+			if(result.isEmpty()) { result.push(it); }
+			else if(result.peek().end < it.start) { result.push(it); }
+			else if (result.peek().end < it.end){
+				result.peek().end = it.end;
+			}
+		}
+		return result;
+	}
+
 }
+// (5,7) (7,8)
+// --------
+//      --------
+
+
+class Interval implements Comparable<Interval> {
+	int start;
+	int end;
+
+	Interval(int start, int end) {
+		this.start = start;
+		this.end = end;
+	}
+
+	@Override
+	public int compareTo(Interval o) {
+		return this.start - o.start;
+	}
+
+	@Override
+	public String toString() {
+		return (this.start + " " +this.end);
+	}
+}
+
+//(5,7) , (6,8)
+
+
+// 5, 3, 6
+//liet = 3,5,6
+//list2 = 6,5,3
+
+
+// negative - first lesser than second
+// positve - first greater than second
 
 //5,2,1,3,20,15
 
 //15,20,3,1,2,5
+
+//
+//AB*
+//+

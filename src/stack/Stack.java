@@ -41,6 +41,11 @@ public class Stack<T extends Comparable> {
         return maxStack.get(maxStack.size()-1);
     }
 
+    @Override
+    public String toString() {
+        return arrayList.toString();
+    }
+
  }
 
  //5,1,2,3
