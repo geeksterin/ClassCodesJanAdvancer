@@ -297,12 +297,11 @@ public class Util {
 	public static Stack<Interval> mergeIntervals(List<Interval> list) {
 
 		Stack<Interval> result = new Stack<>();
+		Collections.sort(list);
 		for(Interval it : list) {
 			if(result.isEmpty()) { result.push(it); }
 			else if(result.peek().end < it.start) { result.push(it); }
-			else if (result.peek().end < it.end){
-				result.peek().end = it.end;
-			}
+			else if (result.peek().end < it.end){ result.peek().end = it.end; }
 		}
 		return result;
 	}
