@@ -18,10 +18,11 @@ public class Main {
 //		int val = Util.largestAreaHistogram(arr);
 //		System.out.println(val);
 
-		System.out.println(Util.mergeIntervals(Arrays.asList(new Interval(4, 7), new Interval(2, 4) ,new Interval(8,9), new Interval(4 , 6))));
-		int val = Util.infixEvaluation("2+(5-3*6/2)");
-		System.out.println(Util.infixToPostfix("A-(B+C)"));
-		System.out.println(val);
+//		System.out.println(Util.mergeIntervals(Arrays.asList(new Interval(4, 7), new Interval(2, 4) ,new Interval(8,9), new Interval(4 , 6))));
+//		int val = Util.infixEvaluation("2+(5-3*6/2)");
+//		System.out.println(Util.infixToPostfix("A-(B+C)"));
+		Util.printBinaryString(30);
+		//System.out.println(val);
 	}
 }
 

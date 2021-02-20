@@ -306,6 +306,19 @@ public class Util {
 		return result;
 	}
 
+	public static void printBinaryString(int n) {
+		Queue<String> queue = new LinkedList<>();
+		int counter = 0;
+		queue.add("1");
+		while (counter < n) {
+			String current = queue.poll();
+			System.out.print(current + " ");
+			queue.add(current+"0");
+			queue.add(current+"1");
+			counter++;
+		}
+	}
+
 }
 // (5,7) (7,8)
 // --------
@@ -350,3 +363,6 @@ class Interval implements Comparable<Interval> {
 //
 //AB*
 //+
+
+
+//9(rear),1,2,3
