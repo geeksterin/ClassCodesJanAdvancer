@@ -293,4 +293,31 @@ public class Tree {
 			System.out.println(path.get(k).data);
 		}
 	}
+
+	static int max_level;
+
+	public static void leftView(Node root, int level) {
+
+	    if(root == null)
+	        return;
+
+	    if(max_level < level) {
+            System.out.println(root.data);
+            max_level = level;
+        }
+	    leftView(root.left, level + 1);
+	    leftView(root.right, level + 1);
+
+    }
+
+    public static void leftViewWithQueue(Node root) {
+	    //HomeWork
+    }
 }
+
+//    0              50
+//    1          25           75
+//    2     12      37     62   87
+//    3           30  40  60 70    90
+
+// 50, 25, 12 , 30

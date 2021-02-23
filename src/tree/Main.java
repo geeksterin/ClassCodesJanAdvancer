@@ -45,7 +45,9 @@ public class Main {
 //		Tree.printPath(root, 100, 200, 0, "");
 //		System.out.println(root);
 //		System.out.println(Tree.NodetoRoot(root, 40));
-		Tree.printKaway(root, 87, 3);
+		Tree tree = new Tree();
+		tree.abc(2);
+		Tree.leftView(root,1);
 	}
 }
 
