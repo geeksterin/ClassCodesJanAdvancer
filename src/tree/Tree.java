@@ -536,6 +536,63 @@ public class Tree {
 
 		return new Pair2(Math.max(left.height, right.height) + 1, max);
 	}
+
+	
+	public static boolean isBstbad(Node node) {
+		if (node == null) {
+			return true;
+		}
+		boolean lans = isBstbad(node.left);
+		boolean rans = isBstbad(node.right);
+		if (lans == false || rans == false) {
+			return false;
+		}
+
+		int lmax = max(node.left);
+		int rmin = min(node.right);
+		if (node.data > lmax && node.data < rmin) {
+			return true;
+		}
+		return false;
+	}
+
+	private static class pair4 {
+		int max;
+		int min;
+		boolean Isbalanced;
+	}
+
+	public static boolean isBst(Node node) {
+		return isBstHelper(node).Isbalanced;
+	}
+
+	private static pair4 isBstHelper(Node node) {
+		if (node == null) {
+			pair4 p = new pair4();
+			p.Isbalanced = true;
+			p.max = Integer.MIN_VALUE;
+			p.min = Integer.MAX_VALUE;
+			return p;
+		}
+
+		pair4 lpair = isBstHelper(node.left);
+		pair4 rpair = isBstHelper(node.right);
+
+		if (lpair.Isbalanced == false || rpair.Isbalanced == false) {
+			pair4 p = new pair4();
+			p.Isbalanced = false;
+			return p;
+		}
+
+		pair4 mpair = new pair4();
+		mpair.max = Math.max(lpair.max, Math.max(rpair.max, node.data));
+		mpair.min = Math.min(lpair.min, Math.min(rpair.min, node.data));
+		if (node.data > lpair.max && node.data < rpair.min) {
+			mpair.Isbalanced = true;
+		}
+
+		return mpair;
+	}
 }
 
 //

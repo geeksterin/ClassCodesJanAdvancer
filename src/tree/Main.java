@@ -32,7 +32,7 @@ public class Main {
 		Tree.add(new Node(60), 62, root, 'L');
 		Tree.add(new Node(70), 62, root, 'R');
 		Tree.add(new Node(90), 87, root, 'R');
-		// Tree.add(new Node(100), 90, root, 'R');
+		// Tree.add(new Node(10), 90, root, 'R');
 //
 //		Tree.add(new Node(90), 87, root, 'R');
 //		Tree.display(root);
@@ -55,7 +55,9 @@ public class Main {
 		// Tree.postIter(root);
 		// Tree.inIter(root);
 		// System.out.println(Tree.isBalancedImprove(root));
-		System.out.println(Tree.diameter(root));
+		// System.out.println(Tree.diameter(root));
+		System.out.println(Tree.isBst(root));
+		System.out.println(Tree.isBstbad(root));
 	}
 }
 
