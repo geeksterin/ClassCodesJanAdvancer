@@ -1,10 +1,8 @@
 package tree;
 
-import com.sun.corba.se.impl.orb.NormalParserData;
-
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.Queue;
+import java.util.*;
 
 public class Tree {
 
@@ -172,19 +170,19 @@ public class Tree {
 		return ls + rs + 1;
 	}
 
-//	Wrong Method
-//	public static void removeLeafs(Node node) {
-//		if (node == null) {
-//			return;
-//		}
-//		if (node.left == null && node.right == null) {
-//			node = null;
-//			return;
-//		}
-//
-//		removeLeafs(node.left);
-//		removeLeafs(node.right);
-//	}
+	// Wrong Method
+	// public static void removeLeafs(Node node) {
+	// if (node == null) {
+	// return;
+	// }
+	// if (node.left == null && node.right == null) {
+	// node = null;
+	// return;
+	// }
+	//
+	// removeLeafs(node.left);
+	// removeLeafs(node.right);
+	// }
 
 	public static void removeLeafs(Node parent, Node child) {
 
@@ -300,81 +298,257 @@ public class Tree {
 
 	public static void leftView(Node root, int level) {
 
-	    if(root == null)
-	        return;
+		if (root == null)
+			return;
 
-	    if(max_level < level) {
-            System.out.println(root.data);
-            max_level = level;
-        }
-	    leftView(root.left, level + 1);
-	    leftView(root.right, level + 1);
+		if (max_level < level) {
+			System.out.println(root.data);
+			max_level = level;
+		}
+		leftView(root.left, level + 1);
+		leftView(root.right, level + 1);
 
-    }
+	}
 
-    public static void leftViewWithQueue(Node root) {
-	    //HomeWork
-    }
+	public static void leftViewWithQueue(Node root) {
+		// HomeWork
+	}
 
-    public static void rightView(Node root, int level) {
-	    //HomeWork
-    }
+	public static void rightView(Node root, int level) {
+		// HomeWork
+	}
 
-    public static void rightViewWithQueue(Node root) {
+	public static void rightViewWithQueue(Node root) {
 
-	    Queue<Node> queue = new LinkedList<>();
-	    queue.add(root); //root = 1
-	    while (!queue.isEmpty()) {
+		Queue<Node> queue = new LinkedList<>();
+		queue.add(root); // root = 1
+		while (!queue.isEmpty()) {
 
-	        int n = queue.size();
-	        while(n != 0) {
-	            Node temp = queue.poll();
-	            if( n==1 ) {
-                    System.out.println(temp.data); //1
-                }
-	            if(temp.left != null) {
-	                queue.add(temp.left);
-                }
-	            if(temp.right != null) {
-	                queue.add(temp.right);
-                }
-	            n--;
-            }
-        }
-    }
+			int n = queue.size();
+			while (n != 0) {
+				Node temp = queue.poll();
+				if (n == 1) {
+					System.out.println(temp.data); // 1
+				}
+				if (temp.left != null) {
+					queue.add(temp.left);
+				}
+				if (temp.right != null) {
+					queue.add(temp.right);
+				}
+				n--;
+			}
+		}
+	}
 
-    public static int LowestCommonAncestor(Node root,int n1, int n2) {
-	   ArrayList<Node> arrayList1 = nodetoRoot(root, n1);
-	   ArrayList<Node> arrayList2 = nodetoRoot(root, n2);
+	public static int LowestCommonAncestor(Node root, int n1, int n2) {
+		ArrayList<Node> arrayList1 = nodetoRoot(root, n1);
+		ArrayList<Node> arrayList2 = nodetoRoot(root, n2);
 
-	   int i = arrayList1.size()-1;
-	   int j = arrayList2.size()-1;
+		int i = arrayList1.size() - 1;
+		int j = arrayList2.size() - 1;
 
-	   while (arrayList1.get(i) == arrayList2.get(j)) {
-	   	   if(arrayList1.get(i).data == n2 || arrayList2.get(j).data == n1) {
-	   	   		return arrayList1.get(i+1).data;
-		   }
-	       i--;
-	       j--;
-       }
-	   return arrayList1.get(i+1).data;
+		while (arrayList1.get(i) == arrayList2.get(j)) {
+			if (arrayList1.get(i).data == n2 || arrayList2.get(j).data == n1) {
+				return arrayList1.get(i + 1).data;
+			}
+			i--;
+			j--;
+		}
+		return arrayList1.get(i + 1).data;
 
-    }
+	}
+
+	static class Pair {
+		Node node;
+		int wc = 0;
+
+		public Pair(Node node, int wc) {
+			this.node = node;
+			this.wc = wc;
+		}
+	}
+
+	public static void preIter(Node node) {
+		Stack<Pair> stack = new Stack<>();
+		Pair pair = new Pair(node, 0);
+		stack.push(pair);
+		while (stack.size() > 0) {
+			Pair tpair = stack.peek();
+			if (tpair.wc == 0) {
+				System.out.print(tpair.node.data + " ");
+				tpair.wc++;
+			} else if (tpair.wc == 1) {
+				if (tpair.node.left != null) {
+					Pair left = new Pair(tpair.node.left, 0);
+					stack.push(left);
+				}
+				tpair.wc++;
+			} else if (tpair.wc == 2) {
+				if (tpair.node.right != null) {
+					Pair right = new Pair(tpair.node.right, 0);
+					stack.push(right);
+				}
+				tpair.wc++;
+			} else {
+				stack.pop();
+			}
+		}
+		System.out.println();
+	}
+
+	public static void postIter(Node node) {
+		Stack<Pair> stack = new Stack<>();
+		Pair pair = new Pair(node, 0);
+		stack.push(pair);
+		while (stack.size() > 0) {
+			Pair tpair = stack.peek();
+			if (tpair.wc == 0) {
+				if (tpair.node.left != null) {
+					Pair left = new Pair(tpair.node.left, 0);
+					stack.push(left);
+				}
+				tpair.wc++;
+			} else if (tpair.wc == 1) {
+				if (tpair.node.right != null) {
+					Pair right = new Pair(tpair.node.right, 0);
+					stack.push(right);
+				}
+				tpair.wc++;
+			} else if (tpair.wc == 2) {
+
+				System.out.print(tpair.node.data + " ");
+				tpair.wc++;
+			} else {
+				stack.pop();
+			}
+		}
+		System.out.println();
+	}
+
+	public static void inIter(Node node) {
+		Stack<Pair> stack = new Stack<>();
+		Pair pair = new Pair(node, 0);
+		stack.push(pair);
+		while (stack.size() > 0) {
+			Pair tpair = stack.peek();
+			if (tpair.wc == 0) {
+				if (tpair.node.left != null) {
+					Pair left = new Pair(tpair.node.left, 0);
+					stack.push(left);
+				}
+				tpair.wc++;
+			} else if (tpair.wc == 1) {
+
+				System.out.print(tpair.node.data + " ");
+				tpair.wc++;
+
+			} else if (tpair.wc == 2) {
+				if (tpair.node.right != null) {
+					Pair right = new Pair(tpair.node.right, 0);
+					stack.push(right);
+				}
+				tpair.wc++;
+
+			} else {
+				stack.pop();
+			}
+		}
+		System.out.println();
+	}
+
+	public static boolean isBalanced(Node node) {
+		if (node == null) {
+			return true;
+		}
+		boolean lcheck = isBalanced(node.left);
+		if (lcheck == false) {
+			return false;
+		}
+		boolean rcheck = isBalanced(node.right);
+		if (rcheck == false) {
+			return false;
+		}
+
+		int lheight = findHeight(node.left);
+		int rheight = findHeight(node.right);
+		if (lheight - rheight >= -1 && lheight - rheight <= 1) {
+			return true;
+		}
+
+		return false;
+	}
+
+	static class Pair1 {
+		int height;
+		boolean balance;
+
+		Pair1(int h, boolean bal) {
+			this.height = h;
+			this.balance = bal;
+		}
+	}
+
+	public static boolean isBalancedImprove(Node node) {
+		return isBalancedImprovehelper(node).balance;
+	}
+
+	private static Pair1 isBalancedImprovehelper(Node node) {
+		if (node == null) {
+			return new Pair1(0, true);
+		}
+		Pair1 leftp = isBalancedImprovehelper(node.left);
+		Pair1 rightp = isBalancedImprovehelper(node.right);
+		if (leftp.balance == false || rightp.balance == false) {
+			return new Pair1(Math.max(leftp.height, rightp.height) + 1, false);
+		}
+
+		if (leftp.height - rightp.height >= -1 && leftp.height - rightp.height <= 1) {
+			return new Pair1(Math.max(leftp.height, rightp.height) + 1, true);
+		}
+
+		return new Pair1(Math.max(leftp.height, rightp.height) + 1, false);
+	}
+
+	static class Pair2 {
+		int height;
+		int maxDiameter;
+
+		Pair2(int h, int d) {
+			this.height = h;
+			this.maxDiameter = d;
+		}
+	}
+
+	public static int diameter(Node node) {
+		return diameterHelper(node).maxDiameter;
+	}
+
+	private static Pair2 diameterHelper(Node node) {
+		if (node == null) {
+			return new Pair2(0, 0);
+		}
+		Pair2 left = diameterHelper(node.left);
+		Pair2 right = diameterHelper(node.right);
+		int myDia = left.height + right.height + 1;
+
+		int max = Math.max(myDia, Math.max(left.maxDiameter, right.maxDiameter));
+
+		return new Pair2(Math.max(left.height, right.height) + 1, max);
+	}
 }
-
 
 //
 
-//    0              50
-//    1          25           75
-//    2     12      37     62   87
-//    3           30  40  60 70    90
+// 0 50
+// 1 25 75
+// 2 12 37 62 87
+// 3 30 40 60 70 90
 
 // 50, 25, 12 , 30
 
+// 1
+// 2 3
 
-//      1
-//   2      3
-
-//75 50 arraylist1 n1=75
-//90 87 75 50 arraylist2
+// 75 50 arraylist1 n1=75
+// 90 87 75 50 arraylist2

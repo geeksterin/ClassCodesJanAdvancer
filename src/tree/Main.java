@@ -32,6 +32,7 @@ public class Main {
 		Tree.add(new Node(60), 62, root, 'L');
 		Tree.add(new Node(70), 62, root, 'R');
 		Tree.add(new Node(90), 87, root, 'R');
+		// Tree.add(new Node(100), 90, root, 'R');
 //
 //		Tree.add(new Node(90), 87, root, 'R');
 //		Tree.display(root);
@@ -40,7 +41,7 @@ public class Main {
 ////        System.out.println(Tree.size(root));
 //		System.out.println("`````````````````````````");
 //		Tree.removeLeafs(null, root);
-//		Tree.display(root);
+		// Tree.display(root);
 //		Tree.printSingleChild(root, root.left);
 //		Tree.printSingleChild(root, root.right);
 //		Tree.printPath(root, 100, 200, 0, "");
@@ -49,7 +50,12 @@ public class Main {
 //		Tree.add(new Node(2), 1, root, 'L');
 //		Tree.add(new Node(3), 1, root, 'R');
 		//Tree.rightViewWithQueue(root);
-		System.out.println(Tree.LowestCommonAncestor(root, 75, 90));
+		// System.out.println(Tree.LowestCommonAncestor(root, 75, 90));
+		// Tree.preIter(root);
+		// Tree.postIter(root);
+		// Tree.inIter(root);
+		// System.out.println(Tree.isBalancedImprove(root));
+		System.out.println(Tree.diameter(root));
 	}
 }
 
