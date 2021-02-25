@@ -1,5 +1,7 @@
 package tree;
 
+import com.sun.corba.se.impl.orb.NormalParserData;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
@@ -236,7 +238,7 @@ public class Tree {
 		printPath(node.right, lo, hi, sum + node.data, str + node.data + " ");
 	}
 
-	public static ArrayList<Node> NodetoRoot(Node node, int data) {
+	public static ArrayList<Node> nodetoRoot(Node node, int data) {
 		if (node == null) {
 			ArrayList<Node> br = new ArrayList<Node>();
 			return br;
@@ -247,13 +249,13 @@ public class Tree {
 			br.add(node);
 			return br;
 		}
-		ArrayList<Node> myres = NodetoRoot(node.left, data);
+		ArrayList<Node> myres = nodetoRoot(node.left, data);
 		if (myres.size() > 0) {
 			myres.add(node);
 			return myres;
 		}
 
-		ArrayList<Node> myres1 = NodetoRoot(node.right, data);
+		ArrayList<Node> myres1 = nodetoRoot(node.right, data);
 		if (myres1.size() > 0) {
 			myres1.add(node);
 			return myres1;
@@ -276,7 +278,7 @@ public class Tree {
 	}
 
 	public static void printKaway(Node node, int data, int k) {
-		ArrayList<Node> path = NodetoRoot(node, data);
+		ArrayList<Node> path = nodetoRoot(node, data);
 		printKDown(path.get(0), k);
 		for (int i = 1; i < path.size() && i < k; i++) {
 			Node n = path.get(i);
@@ -313,7 +315,55 @@ public class Tree {
     public static void leftViewWithQueue(Node root) {
 	    //HomeWork
     }
+
+    public static void rightView(Node root, int level) {
+	    //HomeWork
+    }
+
+    public static void rightViewWithQueue(Node root) {
+
+	    Queue<Node> queue = new LinkedList<>();
+	    queue.add(root); //root = 1
+	    while (!queue.isEmpty()) {
+
+	        int n = queue.size();
+	        while(n != 0) {
+	            Node temp = queue.poll();
+	            if( n==1 ) {
+                    System.out.println(temp.data); //1
+                }
+	            if(temp.left != null) {
+	                queue.add(temp.left);
+                }
+	            if(temp.right != null) {
+	                queue.add(temp.right);
+                }
+	            n--;
+            }
+        }
+    }
+
+    public static int LowestCommonAncestor(Node root,int n1, int n2) {
+	   ArrayList<Node> arrayList1 = nodetoRoot(root, n1);
+	   ArrayList<Node> arrayList2 = nodetoRoot(root, n2);
+
+	   int i = arrayList1.size()-1;
+	   int j = arrayList2.size()-1;
+
+	   while (arrayList1.get(i) == arrayList2.get(j)) {
+	   	   if(arrayList1.get(i).data == n2 || arrayList2.get(j).data == n1) {
+	   	   		return arrayList1.get(i+1).data;
+		   }
+	       i--;
+	       j--;
+       }
+	   return arrayList1.get(i+1).data;
+
+    }
 }
+
+
+//
 
 //    0              50
 //    1          25           75
@@ -321,3 +371,10 @@ public class Tree {
 //    3           30  40  60 70    90
 
 // 50, 25, 12 , 30
+
+
+//      1
+//   2      3
+
+//75 50 arraylist1 n1=75
+//90 87 75 50 arraylist2

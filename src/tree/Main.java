@@ -31,8 +31,9 @@ public class Main {
 		Tree.add(new Node(87), 75, root, 'R');
 		Tree.add(new Node(60), 62, root, 'L');
 		Tree.add(new Node(70), 62, root, 'R');
-
 		Tree.add(new Node(90), 87, root, 'R');
+//
+//		Tree.add(new Node(90), 87, root, 'R');
 //		Tree.display(root);
 ////        System.out.println(Tree.max(root));
 ////        System.out.println(Tree.min(root));
@@ -45,9 +46,10 @@ public class Main {
 //		Tree.printPath(root, 100, 200, 0, "");
 //		System.out.println(root);
 //		System.out.println(Tree.NodetoRoot(root, 40));
-		Tree tree = new Tree();
-		tree.abc(2);
-		Tree.leftView(root,1);
+//		Tree.add(new Node(2), 1, root, 'L');
+//		Tree.add(new Node(3), 1, root, 'R');
+		//Tree.rightViewWithQueue(root);
+		System.out.println(Tree.LowestCommonAncestor(root, 75, 90));
 	}
 }
 
