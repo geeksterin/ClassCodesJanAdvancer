@@ -12,7 +12,8 @@ public class client {
         // System.out.println(gt.find(55));
         // System.out.println(gt.nodetoRootPath(110));
         // gt.display();
-        gt.removeLeaves();
+        // gt.removeLeaves();
+        gt.mirror();
         gt.display();
     }
 }

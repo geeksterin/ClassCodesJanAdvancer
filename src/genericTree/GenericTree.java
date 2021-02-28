@@ -144,13 +144,34 @@ public class GenericTree {
     }
 
     private void removeLeaves(Node node) {
-        for(int i = node.children.size()-1;i>=0;i--){
+        for (int i = node.children.size() - 1; i >= 0; i--) {
             Node child = node.children.get(i);
-            if(child.children.size()>0){
+            if (child.children.size() > 0) {
                 removeLeaves(child);
-            }else{
+            } else {
                 node.children.remove(child);
             }
+        }
+    }
+
+    public void mirror() {
+        mirror(root);
+    }
+
+    private void mirror(Node node) {
+        for (Node child : node.children) {
+            mirror(child);
+        }
+
+        int l = 0;
+        int r = node.children.size() - 1;
+        while (l < r) {
+            Node leftNode = node.children.get(l);
+            Node rightNode = node.children.get(r);
+            node.children.set(l, rightNode);
+            node.children.set(r, leftNode);
+            l++;
+            r--;
         }
     }
 
