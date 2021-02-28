@@ -115,4 +115,32 @@ public class GenericTree {
         }
         return false;
     }
+
+    public ArrayList<Integer> nodetoRootPath(int data) {
+        return nodetoRootPath(root, data);
+    }
+
+    private ArrayList<Integer> nodetoRootPath(Node node, int data) {
+        if (node.data == data) {
+            ArrayList<Integer> bres = new ArrayList<>();
+            bres.add(node.data);
+            return bres;
+        }
+        ArrayList<Integer> mres = new ArrayList<>();
+        for (Node child : node.children) {
+            ArrayList<Integer> rres = nodetoRootPath(child, data);
+            if (rres.size() > 0) {
+                mres = rres;
+                mres.add(node.data);
+                return mres;
+            }
+        }
+
+        return new ArrayList<>();
+    }
+
+    public void removeLeaves() {
+
+    }
+
 }
