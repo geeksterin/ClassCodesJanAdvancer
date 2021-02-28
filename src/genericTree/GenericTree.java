@@ -222,4 +222,26 @@ public class GenericTree {
         return ltail;
     }
 
+    public static boolean areSimilarShaped(GenericTree gt1, GenericTree gt2){
+        return areSimilarShaped(gt1.root, gt2.root);
+    }
+
+    private static boolean areSimilarShaped(Node n1,Node n2){
+        if(n1.children.size()!=n2.children.size()){
+            return false;
+        }
+
+        for(int i=0;i<n1.children.size();i++){
+            Node c1 = n1.children.get(i);
+            Node c2 = n2.children.get(i);
+
+            boolean acss = areSimilarShaped(c1, c2);
+            if(acss == false){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
 }
