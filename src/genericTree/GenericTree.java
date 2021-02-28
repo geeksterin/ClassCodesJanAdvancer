@@ -49,4 +49,70 @@ public class GenericTree {
             display(child);
         }
     }
+
+    public int size() {
+        if (root == null) {
+            return 0;
+        }
+        return size(root);
+    }
+
+    private int size(Node node) {
+        int size = 0;
+        for (Node child : node.children) {
+            int csize = size(child);
+            size += csize;
+        }
+
+        size++;
+        return size;
+    }
+
+    public int max() {
+        return max(root);
+    }
+
+    private int max(Node node) {
+        int max = node.data;
+
+        for (Node child : node.children) {
+            int cmax = max(child);
+            max = Math.max(max, cmax);
+        }
+
+        return max;
+    }
+
+    public int height() {
+        return height(root);
+    }
+
+    private int height(Node node) {
+        int ht = 0;
+        for (Node child : node.children) {
+            int cht = height(child);
+            ht = Math.max(ht, cht);
+        }
+
+        ht++;
+        return ht;
+    }
+
+    public boolean find(int data) {
+        return find(root, data);
+    }
+
+    private boolean find(Node node, int data) {
+        if (node.data == data) {
+            return true;
+        }
+
+        for (Node child : node.children) {
+            boolean childres = find(child, data);
+            if (childres == true) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
