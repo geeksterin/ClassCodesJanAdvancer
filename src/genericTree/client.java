@@ -13,7 +13,7 @@ public class client {
         // System.out.println(gt.nodetoRootPath(110));
         // gt.display();
         // gt.removeLeaves();
-        gt.mirror();
+        gt.linearise2();
         gt.display();
     }
 }

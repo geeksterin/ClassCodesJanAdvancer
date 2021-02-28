@@ -175,4 +175,51 @@ public class GenericTree {
         }
     }
 
+    public void linearise() {
+        linearise(root);
+    }
+
+    private void linearise(Node node) {
+        for (Node child : node.children) {
+            linearise(child);
+        }
+
+        for (int i = node.children.size() - 1; i > 0; i--) {
+            Node last = node.children.remove(i);
+            Node slast = node.children.get(i - 1);
+            Node sltail = getTail(slast);
+            sltail.children.add(last);
+        }
+    }
+
+    private Node getTail(Node node) {
+        Node tail = node;
+        while (tail.children.size() != 0) {
+            tail = tail.children.get(0);
+        }
+
+        return tail;
+    }
+
+    public void linearise2() {
+        linearise2(root);
+    }
+
+    private Node linearise2(Node node) {
+
+        if(node.children.size()==0){
+            return node;
+        }
+
+        Node ltail = linearise2(node.children.get(node.children.size() - 1));
+        while (node.children.size() > 1) {
+            Node last = node.children.remove(node.children.size() - 1);
+            Node sl = node.children.get(node.children.size() - 1);
+            Node sltail = linearise2(sl);
+            sltail.children.add(last);
+        }
+
+        return ltail;
+    }
+
 }
