@@ -593,9 +593,103 @@ public class Tree {
 
 		return mpair;
 	}
+
+	public static Node invertTree(Node root) {
+
+		if(root == null)
+			return null;
+
+		Node left = invertTree(root.left);
+		Node right = invertTree(root.right);
+
+		root.left = right;
+		root.right = left;
+
+		return root;
+	}
+
+	public static boolean isInverted(Node root1, Node root2) {
+
+		if(root1 == null && root2 == null)
+			return true;
+
+		if(root1!= null && root2!=null && root1.data == root2.data) {
+			return isInverted(root1.left, root2.right) && isInverted(root1.right, root2.left);
+		}
+
+		return false;
+	}
+	static int sum = 0;
+
+	public static void deepLevelSum(Node root, int level) {
+
+		if(root == null)
+			return;
+
+		if(max_level == level) {
+			sum = sum + root.data;
+		}
+
+		if(max_level < level) {
+			sum = root.data;
+			max_level = level;
+		}
+		deepLevelSum(root.left, level+1);
+		deepLevelSum(root.right, level+1);
+	}
+
+
+	public static void convertToLinkedList(Node root) {
+		if(root == null)
+			return;
+		if(root.left == null && root.right == null)
+			return;
+		if(root.left != null) {
+			convertToLinkedList(root.left);
+			Node temp = root.right;
+			root.right = root.left;
+			root.left = null;
+
+			Node curr = root.right;
+			while (curr.right != null) {
+				curr = curr.right;
+			}
+			curr.right = temp;
+		}
+		convertToLinkedList(root.right);
+	}
+
+	public static boolean isSubtree(Node tree, Node sub) {
+
+		if(tree == null)
+			return false;
+
+		if(sub == null)
+			return false;
+
+		if(isEqual(tree, sub))
+			return true;
+
+		return isSubtree(tree.left, sub) || isSubtree(tree.right, sub);
+	}
+
+	private static boolean isEqual(Node t1, Node t2) {
+
+		if(t1 == null && t2 == null)
+			return true;
+		if(t1 == null || t2 == null)
+			return false;
+
+		if(t1.data == t2.data)
+			return isEqual(t1.left , t2.left) && isEqual(t1.right, t2.right);
+		return false;
+	}
+
 }
 
-//
+//		50
+//	25		75
+//20	42
 
 // 0 50
 // 1 25 75
@@ -609,3 +703,30 @@ public class Tree {
 
 // 75 50 arraylist1 n1=75
 // 90 87 75 50 arraylist2
+
+
+/**
+ * 				50
+ * 			25	 		75
+ * 		35		30	  60	65
+ * 			45
+ *
+ */
+
+
+// 		50
+//	20		25
+//		15
+//			26
+
+
+
+
+// 50 --> 25 --> 30 --> 35 --> 75 --> 60 --> 65 --> null
+
+// level = 1 , max_level = 0, sum = root
+
+// 	 30
+//40	45
+
+//30 --> 40 --> 45
