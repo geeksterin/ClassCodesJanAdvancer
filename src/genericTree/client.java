@@ -10,6 +10,9 @@ public class client {
         // System.out.println(gt.height());
         // System.out.println(gt.find(50));
         // System.out.println(gt.find(55));
-        System.out.println(gt.nodetoRootPath(110));
+        // System.out.println(gt.nodetoRootPath(110));
+        // gt.display();
+        gt.removeLeaves();
+        gt.display();
     }
 }
