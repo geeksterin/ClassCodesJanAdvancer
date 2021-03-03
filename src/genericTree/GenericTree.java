@@ -1,6 +1,8 @@
 package genericTree;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Stack;
 
 public class GenericTree {
@@ -244,4 +246,71 @@ public class GenericTree {
         return true;
     }
 
+    public boolean isMirror(GenericTree t2) {
+        return isMirrorUtil(root, t2.root);
+    }
+
+
+    //           1                                    1
+    //    2   3   4   5                           5  4   8   2(j)
+
+
+
+    public boolean isMirrorUtil(Node node1, Node node2) {
+
+        if(node1 == null && node2== null)
+            return true;
+
+        if(node2 == null || node1 == null)
+            return false;
+
+        if(node1.children.size() != node2.children.size())
+            return false;
+
+        int i = 0;
+        int j = node2.children.size()-1;
+        if(node1.data == node2.data) {
+            while (i < node1.children.size() && j>=0) {
+                if(!isMirrorUtil(node1.children.get(i), node2.children.get(j))) {
+                    break;
+                }
+                i++;
+                j--;
+            }
+        }
+        if(i <= node1.children.size() || j>=0) {
+            return false;
+        }
+        return true;
+    }
+
+    public int oddAndEvenDifference() {
+        Queue<Node> queue = new LinkedList<>();
+        queue.add(root);
+        int odd=0;
+        int even=0;
+        boolean level =  true;
+
+        while (!queue.isEmpty()) {
+            int size = queue.size();
+           while (size-- > 0) {
+               Node temp = queue.poll();
+               if(level) {
+                   odd+=temp.data;
+               } else {
+                   even+=temp.data;
+               }
+               queue.addAll(temp.children);
+           }
+           level = !level;
+        }
+        return Math.abs(odd -even);
+    }
+
 }
+
+//          1
+//    2   3   4
+//  0 8 9
+
+// 7 6 9 8 0
