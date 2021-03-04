@@ -36,7 +36,7 @@ public class HashMapClient{
 
       int[] one = {5,1,3,1,2,2,1};
       int[] two = {2,2,4,1,1,5,2};
-      getCommonElements1(one,two);
+      getCommonElements2(one,two);
      }
 
      public static void getCommonElements1(int[] one,int[] two){
@@ -58,5 +58,27 @@ public class HashMapClient{
            }
         }
         System.out.println();
+     }
+
+     public static void getCommonElements2(int[] one,int[] two){
+        HashMap<Integer,Integer> map = new HashMap<>();
+        for(int val:one){
+           if(map.containsKey(val)){
+               map.put(val,map.get(val)+1);
+           }else{
+               map.put(val,1);
+           }
+        }
+
+        for(int val:two){
+           if(map.containsKey(val)){
+              System.out.println(val);
+              map.put(val,map.get(val)-1);
+
+              if(map.get(val)<=0){
+                 map.remove(val);
+              }
+           }
+        }
      }
 }
