@@ -34,9 +34,12 @@ public class HashMapClient{
       
       // // we can't rely on hashmap for order
 
-      int[] one = {5,1,3,1,2,2,1};
-      int[] two = {2,2,4,1,1,5,2};
-      getCommonElements2(one,two);
+      // int[] one = {5,1,3,1,2,2,1};
+      // int[] two = {2,2,4,1,1,5,2};
+      // getCommonElements2(one,two);
+
+      int[] arr = {2,12,9,16,10,5,3,20,25,11,1,8,6};
+      longestSequence(arr);
      }
 
      public static void getCommonElements1(int[] one,int[] two){
@@ -80,5 +83,37 @@ public class HashMapClient{
               }
            }
         }
+     }
+
+
+     public static void longestSequence(int[] arr){
+        HashMap<Integer,Boolean> map = new HashMap<>();
+        for(int val:arr){
+           map.put(val,false);
+        } 
+
+        for(int val:arr){
+           if(map.containsKey(val-1)==false){
+              map.put(val,true);
+           }
+        }
+
+        int sidx = -1;
+        int maxCount = 0;
+        for(int val:arr){
+           int count =1;
+           if(map.get(val)==true){
+              while(map.containsKey(val+count)){
+                 count++;
+              }
+            //   count--;
+              if(count>maxCount){
+                 maxCount = count;
+                 sidx = val;
+              }
+           }
+        }
+
+        System.out.println(sidx+" "+maxCount);
      }
 }
