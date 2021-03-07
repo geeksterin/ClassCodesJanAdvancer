@@ -1,5 +1,3 @@
-package binarysearchtree;
-
 public class Node {
     Integer data;
     Node left;
