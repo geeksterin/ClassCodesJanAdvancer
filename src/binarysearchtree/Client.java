@@ -10,7 +10,11 @@ public class Client {
         // System.out.println(binarySearchTree.diameterLength());
         // System.out.println(binarySearchTree.max());
         // System.out.println(binarySearchTree.min());
-        binarySearchTree.pir(binarySearchTree.min(),binarySearchTree.max());
+        // binarySearchTree.pir(binarySearchTree.min(),binarySearchTree.max());
+        // binarySearchTree.replaceWithSumOfLargerNodes();
+        binarySearchTree.remove(18);
+        binarySearchTree.inOrder();
+
     }
 }
 

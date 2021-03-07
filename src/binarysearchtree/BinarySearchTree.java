@@ -131,4 +131,49 @@ public class BinarySearchTree {
             pir(node.right, lo, hi);
         }
     }
+
+    private int sum;
+    public void replaceWithSumOfLargerNodes(){
+        sum = 0;
+        replaceWithSumOfLargerNodes(root);
+    }
+
+    private void replaceWithSumOfLargerNodes(Node node) {
+        if(node == null){
+            return;
+        }
+        replaceWithSumOfLargerNodes(node.right);
+
+        int temp = node.data;
+        node.data = sum;
+        sum+=temp;
+
+        replaceWithSumOfLargerNodes(node.left);
+    }
+
+    public void remove(int data){
+        root = remove(root,data);
+    }
+
+    private Node remove(Node node, int data) {
+        if(node.data>data){
+           node.left = remove(node.left,data);
+        }else if(node.data<data){
+            node.right = remove(node.right,data);
+        }else{
+            if(node.left==null&&node.right == null){
+                return null;
+            }else if(node.left==null){
+                return node.right;
+            }else if(node.right == null){
+                return node.left;
+            }else{
+                int lmax = max(node.left);
+                node.data = lmax;
+                node.left = remove(node.left,lmax);
+            }
+        }
+
+        return node;
+    }
 }
