@@ -118,7 +118,7 @@ public class BinarySearchTree {
     }
 
     private void pir(Node node, int lo, int hi) {
-        if(node==null){
+        if (node == null) {
             return;
         }
         if (node.data > hi) {
@@ -133,47 +133,99 @@ public class BinarySearchTree {
     }
 
     private int sum;
-    public void replaceWithSumOfLargerNodes(){
+
+    public void replaceWithSumOfLargerNodes() {
         sum = 0;
         replaceWithSumOfLargerNodes(root);
     }
 
     private void replaceWithSumOfLargerNodes(Node node) {
-        if(node == null){
+        if (node == null) {
             return;
         }
         replaceWithSumOfLargerNodes(node.right);
 
         int temp = node.data;
         node.data = sum;
-        sum+=temp;
+        sum += temp;
 
         replaceWithSumOfLargerNodes(node.left);
     }
 
-    public void remove(int data){
-        root = remove(root,data);
+    public void remove(int data) {
+        root = remove(root, data);
     }
 
     private Node remove(Node node, int data) {
-        if(node.data>data){
-           node.left = remove(node.left,data);
-        }else if(node.data<data){
-            node.right = remove(node.right,data);
-        }else{
-            if(node.left==null&&node.right == null){
+        if (node.data > data) {
+            node.left = remove(node.left, data);
+        } else if (node.data < data) {
+            node.right = remove(node.right, data);
+        } else {
+            if (node.left == null && node.right == null) {
                 return null;
-            }else if(node.left==null){
+            } else if (node.left == null) {
                 return node.right;
-            }else if(node.right == null){
+            } else if (node.right == null) {
                 return node.left;
-            }else{
+            } else {
                 int lmax = max(node.left);
                 node.data = lmax;
-                node.left = remove(node.left,lmax);
+                node.left = remove(node.left, lmax);
             }
         }
 
         return node;
     }
+
+    public int LCA(int d1, int d2) {
+        return LCA(root, d1, d2);
+    }
+
+    private int LCA(Node node, int d1, int d2) {
+        if (d1 > node.data && d2 > node.data) {
+            return LCA(node.right, d1, d2);
+        } else if (d2 < node.data && d1 < node.data) {
+            return LCA(node.left, d1, d2);
+        } else {
+            return node.data;
+        }
+    }
+
+    public boolean find(int data) {
+        return find(root, data);
+    }
+
+    private boolean find(Node node, int data) {
+        if (node == null) {
+            return false;
+        }
+        if (node.data == data) {
+            return true;
+        }
+
+        if (data > node.data) {
+            return find(node.right, data);
+        } else {
+            return find(node.left, data);
+        }
+    }
+
+    public void targetSumPair(int sum) {
+        targetSumPair(root, sum);
+    }
+
+    private void targetSumPair(Node node, int sum) {
+        if (node == null) {
+            return;
+        }
+        if (find(sum - node.data)) {
+            if (node.data < (sum - node.data)) {
+                System.out.println(node.data + " " + (sum - node.data));
+            }
+        }
+        targetSumPair(node.left, sum);
+        targetSumPair(node.right, sum);
+    }
+
 }

@@ -12,8 +12,11 @@ public class Client {
         // System.out.println(binarySearchTree.min());
         // binarySearchTree.pir(binarySearchTree.min(),binarySearchTree.max());
         // binarySearchTree.replaceWithSumOfLargerNodes();
-        binarySearchTree.remove(18);
-        binarySearchTree.inOrder();
+        // binarySearchTree.remove(18);
+        // binarySearchTree.inOrder();
+        // System.out.println(binarySearchTree.LCA(18, 21));
+        binarySearchTree.targetSumPair(40);
+        // System.out.println(binarySearchTree.find(22));
 
     }
 }
