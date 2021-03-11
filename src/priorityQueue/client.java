@@ -7,5 +7,11 @@ public class client {
         hp.add(200);
         hp.add(100);
         hp.display();
+
+        System.out.println(hp.remove());
+        System.out.println(hp.remove());
+        System.out.println(hp.remove());
+        System.out.println(hp.remove());
+        System.out.println(hp.remove());
     }
 }
