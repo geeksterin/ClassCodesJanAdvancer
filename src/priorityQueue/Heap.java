@@ -3,10 +3,17 @@ import java.util.*;
 public class Heap {
     ArrayList<Integer> data = new ArrayList<>();
 
-    Heap() {
+    Heap(int[] arr) {
+        for(int val:arr){
+            this.data.add(val);
+        }
 
+        for(int i=(size()/2)-1;i>=0;i--){
+            downheapify(i);
+        }
     }
 
+    // O(logn)
     public void add(int val) {
         this.data.add(val);
         upheapify(this.data.size() - 1);
@@ -35,6 +42,7 @@ public class Heap {
         System.out.println(this.data);
     }
 
+    // O(1)
     public int peek() {
         return this.data.get(0);
     }
@@ -47,6 +55,7 @@ public class Heap {
         return this.data.isEmpty();
     }
 
+    // O(logn)
     public int remove() {
         swap(0, this.data.size() - 1);
         int rv = this.data.remove(this.data.size() - 1);
@@ -75,4 +84,6 @@ public class Heap {
 
     }
 
+
+    
 }
