@@ -58,14 +58,15 @@ public class Heap {
         int maxi = pi;
         int lci = 2 * pi + 1;
 
-        if (lci < this.data.size() && this.data.get(lci) > this.data.get(pi)) {
+        if (lci < this.data.size() && this.data.get(lci) > this.data.get(maxi)) {
             maxi = lci;
         }
 
         int rci = 2 * pi + 2;
-        if (rci < this.data.size() && this.data.get(rci) > this.data.get(pi)) {
+        if (rci < this.data.size() && this.data.get(rci) > this.data.get(maxi)) {
             maxi = rci;
         }
+
 
         if (maxi != pi) {
             swap(pi, maxi);
