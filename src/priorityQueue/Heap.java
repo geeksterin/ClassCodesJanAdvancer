@@ -3,7 +3,10 @@ import java.util.*;
 public class Heap {
     ArrayList<Integer> data = new ArrayList<>();
 
-    Heap(int[] arr) {
+    boolean max;
+
+    Heap(int[] arr,boolean max) {
+        this.max = max;
         for(int val:arr){
             this.data.add(val);
         }
@@ -24,9 +27,17 @@ public class Heap {
             return;
         }
         int pi = (ci - 1) / 2;
-        if (this.data.get(ci) > this.data.get(pi)) {
+        if (isHP(pi,ci)==false) {
             swap(pi, ci);
             upheapify(pi);
+        }
+    }
+
+    public boolean isHP(int pi,int ci){
+        if(max==false){
+            return this.data.get(pi)<this.data.get(ci);
+        }else{
+            return this.data.get(pi)>this.data.get(ci);
         }
     }
 
@@ -67,12 +78,12 @@ public class Heap {
         int maxi = pi;
         int lci = 2 * pi + 1;
 
-        if (lci < this.data.size() && this.data.get(lci) > this.data.get(maxi)) {
+        if (lci < this.data.size() && isHP(maxi,lci)==false) {
             maxi = lci;
         }
 
         int rci = 2 * pi + 2;
-        if (rci < this.data.size() && this.data.get(rci) > this.data.get(maxi)) {
+        if (rci < this.data.size() && isHP(maxi,rci)==false) {
             maxi = rci;
         }
 

@@ -1,7 +1,7 @@
 public class client {
     public static void main(String[] args){
         int[] arr = {20,10,5,40,15,75,99,8};
-        Heap hp = new Heap(arr);
+        Heap hp = new Heap(arr,false);
         // hp.add(20);
         // hp.add(10);
         // hp.add(5);
