@@ -1,5 +1,3 @@
-package recursion;
-
 public class Recursion4 {
 
 	public static void main(String[] args) {
@@ -11,9 +9,21 @@ public class Recursion4 {
 //		sb.append('d');
 //		sb.charAt(0);
 //		sb.toString();
-		binaryStrings("1??0?101",new StringBuilder(), 0);
+		// binaryStrings("1??0?101",new StringBuilder(), 0);
+		toh(3,'A','B','C');
 //		}
 	}
+
+	public static void toh(int n, char src, char dest, char help){
+		if(n==0){
+			return;
+		}
+		toh(n-1,src,help,dest);
+		System.out.println("Move "+n+"th disk from "+src+" to "+dest);
+		toh(n-1,help,dest,src);
+	}
+
+
 
 	public static void mergeSort(int[] arr, int l, int r) {
 		if (l < r) {
