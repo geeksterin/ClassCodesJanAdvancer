@@ -122,7 +122,7 @@ public class HashMap<K, V> {
     public void display() {
         System.out.println("``````````````````````````````````");
         for(int i=0;i<buckets.length;i++){
-            System.out.println("B"+i+"- ");
+            System.out.print("B"+i+"- ");
             for(int di = 0;di<buckets[i].size();di++){
                 HMnode hmnode = buckets[i].get(di);
                 System.out.print("{"+hmnode.key+"="+hmnode.value+"}, ");
@@ -137,6 +137,17 @@ public class HashMap<K, V> {
 
     public boolean isEmpty() {
         return this.size == 0;
+    }
+
+    public ArrayList<K> keySet(){
+        ArrayList<K> keys = new ArrayList<>();
+        for(int i=0;i<buckets.length;i++){
+            for(int di=0;di<buckets[i].size();di++){
+                keys.add(buckets[i].get(di).key);
+            }
+        }
+
+        return keys;
     }
 
 }
