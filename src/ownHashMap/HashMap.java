@@ -23,6 +23,11 @@ public class HashMap<K, V> {
         }
     }
 
+    private int hashFunction(K key){
+        int hc = key.hashCode();
+        return Math.abs(hc)%buckets.length;
+    }
+
     public V get(K key) {
         int bi = hashFunction(key);
         HMnode hmnode = findWithinBucket(bi, key);
@@ -34,9 +39,9 @@ public class HashMap<K, V> {
         }
     }
 
-    private HMNode findWithinBucket(int bi, K key) {
+    private HMnode findWithinBucket(int bi, K key) {
         for (int di = 0; di < buckets[bi].size(); di++) {
-            HMnode hmnode = buckets[bi].getAt(di);
+            HMnode hmnode = buckets[bi].get(di);
             if (hmnode.key.equals(key)) {
                 return hmnode;
             }
@@ -50,11 +55,33 @@ public class HashMap<K, V> {
         HMnode hmnode = findWithinBucket(bi, key);
 
         if (hmnode == null) {
-            HMnode = new HMnode(key,value);
+            hmnode = new HMnode(key,value);
             buckets[bi].addLast(hmnode);
             this.size++;
         } else {
             hmnode.value = value;
+        }
+
+        double lambda = (this.size*1.0)/buckets.length;
+        if(lambda>2.0){
+            rehash();
+        }
+    }
+
+    private void rehash(){
+        LinkedList<HMnode> [] oba = buckets;
+        buckets = new LinkedList[2*buckets.length];
+        for(int i=0;i<buckets.length;i++){
+            buckets[i] = new LinkedList<>();
+        }
+
+        this.size = 0;
+
+        for(int bi = 0;bi<oba.length;bi++){
+            for(int di =0;di<oba[bi].size();di++){
+                HMnode hmnode = oba[bi].get(di);
+                put(hmnode.key,hmnode.value);
+            }
         }
     }
 
@@ -83,10 +110,10 @@ public class HashMap<K, V> {
     }
 
     private void removeFromBucket(int bi, K key){
-        for(int di = 0;di<buckets[bi].size;di++){
-            HMnode hmnode = buckets[bi].getAt(di);
+        for(int di = 0;di<buckets[bi].size();di++){
+            HMnode hmnode = buckets[bi].get(di);
             if(hmnode.key.equals(key)){
-                bucket[bi].removeAt(di);
+                buckets[bi].remove(di);
                 return;
             }
         }
@@ -96,8 +123,8 @@ public class HashMap<K, V> {
         System.out.println("``````````````````````````````````");
         for(int i=0;i<buckets.length;i++){
             System.out.println("B"+i+"- ");
-            for(int di = 0;di<buckets[i].size;di++){
-                HMnode hmnode = buckets[i].getAt(di);
+            for(int di = 0;di<buckets[i].size();di++){
+                HMnode hmnode = buckets[i].get(di);
                 System.out.print("{"+hmnode.key+"="+hmnode.value+"}, ");
             }
             System.out.println();
