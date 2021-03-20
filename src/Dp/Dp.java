@@ -22,8 +22,10 @@ public class Dp {
         // {0, 6, 14, 2}};
         // System.out.println(goldMine(mine));
 
-        int[] arr = {3,2,0,2,3,1,0,1,2,0,1};
-        System.out.println(minJumps(arr));
+        // int[] arr = {3,2,0,2,3,1,0,1,2,0,1};
+        // System.out.println(minJumps(arr));
+        int[] ans = {10,22,9,33,21,50,40,60,80};
+        System.out.println(LIS(ans));
     }
 
     public static int fib(int n) {
@@ -181,5 +183,27 @@ public class Dp {
 
         return jumps[jumps.length-1];
 
+    }
+    public static int LIS(int[] arr){
+        int[] res = new int [arr.length];
+        res[0] = 1;
+        for(int i=1;i<res.length;i++){
+            int max = Integer.MIN_VALUE;
+            for(int j=0;j<i;j++){
+                if(arr[j]<arr[i]){
+                    max = Math.max(res[j],max);
+                }
+            }
+
+            res[i] = max+1;
+        }
+
+        int ans = Integer.MIN_VALUE;
+        for(int val:res){
+            ans = Math.max(val,ans);
+        }
+
+        System.out.println(ans);
+        return ans;
     }
 }
