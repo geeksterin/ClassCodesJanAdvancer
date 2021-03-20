@@ -16,11 +16,14 @@ public class Dp {
         // System.out.println(countMazePath(2,2));
         // System.out.println(countMazePath2(2,2));
 
-        int[][] mine = {{10, 33, 13, 15},
-        {22, 21, 04, 1},
-        {5, 0, 2, 3},
-        {0, 6, 14, 2}};
-        System.out.println(goldMine(mine));
+        // int[][] mine = {{10, 33, 13, 15},
+        // {22, 21, 04, 1},
+        // {5, 0, 2, 3},
+        // {0, 6, 14, 2}};
+        // System.out.println(goldMine(mine));
+
+        int[] arr = {3,2,0,2,3,1,0,1,2,0,1};
+        System.out.println(minJumps(arr));
     }
 
     public static int fib(int n) {
@@ -161,5 +164,22 @@ public class Dp {
         }
 
         return ans;
+    }
+
+    public static int minJumps(int[] arr){
+        int[] jumps = new int[arr.length];
+        jumps[0] = 0;
+        for(int i=1;i<arr.length;i++){
+            int min = Integer.MAX_VALUE;
+            for(int j=0;j<i;j++){
+                if(arr[j]>=i-j){
+                    min = Math.min(min,jumps[j]+1);
+                }
+            }
+            jumps[i] = min;
+        }
+
+        return jumps[jumps.length-1];
+
     }
 }
