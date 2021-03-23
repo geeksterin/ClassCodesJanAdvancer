@@ -28,8 +28,10 @@ public class Dp {
         // System.out.println(LIS(ans));
         // int[] arr = { 0, 3, 5, 6, 15, 10, 25, 12, 24 };
         // System.out.println(rodCutting(arr));
-        int[] arr = {2,3,1,5,6};
-        System.out.println(TargetSumSubset(arr,20));
+        // int[] arr = { 2, 3, 1, 5, 6 };
+        // System.out.println(TargetSumSubset(arr, 20));
+        int[] arr= {2,3,5};
+        System.out.println(coinChangePermutation(arr,7));
     }
 
     public static int fib(int n) {
@@ -257,5 +259,20 @@ public class Dp {
         }
 
         return strg[strg.length - 1][strg[0].length - 1];
+    }
+
+    public static int coinChangePermutation(int[] arr, int target) {
+        int[] strg = new int[target + 1];
+
+        strg[0] = 1;
+        for (int i = 0; i < strg.length; i++) {
+            for (int j = 0; j < arr.length; j++) {
+                if (i - arr[j] >= 0) {
+                    strg[i] += strg[i - arr[j]];
+                }
+            }
+        }
+
+        return strg[strg.length-1];
     }
 }
