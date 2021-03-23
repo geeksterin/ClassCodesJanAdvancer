@@ -24,8 +24,12 @@ public class Dp {
 
         // int[] arr = {3,2,0,2,3,1,0,1,2,0,1};
         // System.out.println(minJumps(arr));
-        int[] ans = {10,22,9,33,21,50,40,60,80};
-        System.out.println(LIS(ans));
+        // int[] ans = { 10, 22, 9, 33, 21, 50, 40, 60, 80 };
+        // System.out.println(LIS(ans));
+        // int[] arr = { 0, 3, 5, 6, 15, 10, 25, 12, 24 };
+        // System.out.println(rodCutting(arr));
+        int[] arr = {2,3,1,5,6};
+        System.out.println(TargetSumSubset(arr,20));
     }
 
     public static int fib(int n) {
@@ -115,18 +119,18 @@ public class Dp {
         return strg[0][0];
     }
 
-    public static int countMazePath2(int dr,int dc){
-        int[][] strg = new int[dr+1][dc+1];
-        for(int i=0;i<=dr;i++){
-            for(int j=0;j<=dc;j++){
-                if(i==0&&j==0){
+    public static int countMazePath2(int dr, int dc) {
+        int[][] strg = new int[dr + 1][dc + 1];
+        for (int i = 0; i <= dr; i++) {
+            for (int j = 0; j <= dc; j++) {
+                if (i == 0 && j == 0) {
                     strg[0][0] = 1;
-                }else if(i==0){
-                    strg[i][j] = strg[i][j-1];
-                }else if(j==0){
-                    strg[i][j] = strg[i-1][j];
-                }else{
-                    strg[i][j] = strg[i-1][j]+strg[i][j-1];
+                } else if (i == 0) {
+                    strg[i][j] = strg[i][j - 1];
+                } else if (j == 0) {
+                    strg[i][j] = strg[i - 1][j];
+                } else {
+                    strg[i][j] = strg[i - 1][j] + strg[i][j - 1];
                 }
             }
         }
@@ -134,33 +138,33 @@ public class Dp {
         return strg[dr][dc];
     }
 
-    public static int goldMine(int[][] gold){
-        int rowMax = gold.length -1;
-        int colMax = gold[0].length -1;
-        int[][] costs = new int[rowMax+1][colMax+1];
+    public static int goldMine(int[][] gold) {
+        int rowMax = gold.length - 1;
+        int colMax = gold[0].length - 1;
+        int[][] costs = new int[rowMax + 1][colMax + 1];
 
-        for(int i=0;i<=rowMax;i++){
+        for (int i = 0; i <= rowMax; i++) {
             costs[i][colMax] = gold[i][colMax];
         }
 
-        for(int j=colMax-1;j>=0;j--){
-            for(int i=0;i<=rowMax;i++){
-                if(i==0){
-                    int max = Math.max(costs[i+1][j+1],costs[i][j+1]);
-                    costs[i][j] = gold[i][j]+max;
-                }else if(i==rowMax){
-                    int max = Math.max(costs[i-1][j+1],costs[i][j+1]);
-                    costs[i][j] = gold[i][j]+max;
-                }else{
-                    int max = Math.max(costs[i+1][j+1],Math.max(costs[i-1][j+1],costs[i][j+1]));
-                    costs[i][j] = gold[i][j]+max;
+        for (int j = colMax - 1; j >= 0; j--) {
+            for (int i = 0; i <= rowMax; i++) {
+                if (i == 0) {
+                    int max = Math.max(costs[i + 1][j + 1], costs[i][j + 1]);
+                    costs[i][j] = gold[i][j] + max;
+                } else if (i == rowMax) {
+                    int max = Math.max(costs[i - 1][j + 1], costs[i][j + 1]);
+                    costs[i][j] = gold[i][j] + max;
+                } else {
+                    int max = Math.max(costs[i + 1][j + 1], Math.max(costs[i - 1][j + 1], costs[i][j + 1]));
+                    costs[i][j] = gold[i][j] + max;
                 }
             }
         }
 
         int ans = Integer.MIN_VALUE;
-        for(int i=0;i<=rowMax;i++){
-            if(costs[i][0]>ans){
+        for (int i = 0; i <= rowMax; i++) {
+            if (costs[i][0] > ans) {
                 ans = costs[i][0];
             }
         }
@@ -168,42 +172,90 @@ public class Dp {
         return ans;
     }
 
-    public static int minJumps(int[] arr){
+    public static int minJumps(int[] arr) {
         int[] jumps = new int[arr.length];
         jumps[0] = 0;
-        for(int i=1;i<arr.length;i++){
+        for (int i = 1; i < arr.length; i++) {
             int min = Integer.MAX_VALUE;
-            for(int j=0;j<i;j++){
-                if(arr[j]>=i-j){
-                    min = Math.min(min,jumps[j]+1);
+            for (int j = 0; j < i; j++) {
+                if (arr[j] >= i - j) {
+                    min = Math.min(min, jumps[j] + 1);
                 }
             }
             jumps[i] = min;
         }
 
-        return jumps[jumps.length-1];
+        return jumps[jumps.length - 1];
 
     }
-    public static int LIS(int[] arr){
-        int[] res = new int [arr.length];
+
+    public static int LIS(int[] arr) {
+        int[] res = new int[arr.length];
         res[0] = 1;
-        for(int i=1;i<res.length;i++){
+        for (int i = 1; i < res.length; i++) {
             int max = Integer.MIN_VALUE;
-            for(int j=0;j<i;j++){
-                if(arr[j]<arr[i]){
-                    max = Math.max(res[j],max);
+            for (int j = 0; j < i; j++) {
+                if (arr[j] < arr[i]) {
+                    max = Math.max(res[j], max);
                 }
             }
 
-            res[i] = max+1;
+            res[i] = max + 1;
         }
 
         int ans = Integer.MIN_VALUE;
-        for(int val:res){
-            ans = Math.max(val,ans);
+        for (int val : res) {
+            ans = Math.max(val, ans);
         }
 
         System.out.println(ans);
         return ans;
+    }
+
+    public static int rodCutting(int[] rod) {
+        int[] strg = new int[rod.length];
+
+        strg[0] = rod[0];
+        strg[1] = rod[1];
+
+        for (int i = 2; i < rod.length; i++) {
+            int max = Integer.MIN_VALUE;
+            for (int j = 1, c = i - 1; j <= c; j++, c--) {
+                max = Math.max(max, strg[j] + strg[c]);
+            }
+
+            if (rod[i] > max) {
+                max = rod[i];
+            }
+
+            strg[i] = max;
+        }
+
+        return strg[strg.length - 1];
+    }
+
+    public static boolean TargetSumSubset(int[] arr, int target) {
+        boolean[][] strg = new boolean[arr.length + 1][target + 1];
+        for (int i = 0; i < strg.length; i++) {
+            for (int j = 0; j < strg[0].length; j++) {
+                if (i == 0 && j == 0) {
+                    strg[i][j] = true;
+                } else if (i == 0) {
+                    strg[i][j] = false;
+                } else if (j == 0) {
+                    strg[i][j] = true;
+                } else {
+                    if (strg[i - 1][j]) {
+                        strg[i][j] = true;
+                    } else {
+                        if (j - arr[i - 1] >= 0) {
+                            strg[i][j] = strg[i - 1][j - arr[i - 1]];
+                        }
+                    }
+                }
+            }
+        }
+
+        return strg[strg.length - 1][strg[0].length - 1];
     }
 }
