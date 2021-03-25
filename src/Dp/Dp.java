@@ -30,9 +30,11 @@ public class Dp {
         // System.out.println(rodCutting(arr));
         // int[] arr = { 2, 3, 1, 5, 6 };
         // System.out.println(TargetSumSubset(arr, 20));
-        int[] arr = { 2, 3, 5 };
-        System.out.println(coinChangePermutation(arr, 7));
-        System.out.println(coinChangeCombination(arr,7));
+        // int[] arr = { 2, 3, 5 };
+        // System.out.println(coinChangePermutation(arr, 7));
+        // System.out.println(coinChangeCombination(arr,7));
+        int[] arr = {5, 5, 10, 100, 10, 5};
+        maxSumNoAdjacentElement(arr);
     }
 
     public static int fib(int n) {
@@ -290,5 +292,18 @@ public class Dp {
         }
 
         return strg[strg.length - 1];
+    }
+
+    public static void maxSumNoAdjacentElement(int[] arr){
+        int exclude = 0;
+        int include = arr[0];
+
+        for(int j=1;j<arr.length;j++){
+            int temp = Math.max(include,exclude);
+            include = exclude+arr[j];
+            exclude = temp;
+        }
+
+        System.out.println(Math.max(include,exclude));
     }
 }
