@@ -33,8 +33,11 @@ public class Dp {
         // int[] arr = { 2, 3, 5 };
         // System.out.println(coinChangePermutation(arr, 7));
         // System.out.println(coinChangeCombination(arr,7));
-        int[] arr = {5, 5, 10, 100, 10, 5};
-        maxSumNoAdjacentElement(arr);
+        // int[] arr = { 2, 1, 2, 2 };
+        // maxSumNoAdjacentElement(arr);
+        String str1 = "AGGTAB";
+        String str2 = "GXTXAYB";
+        Lcs(str1,str2);
     }
 
     public static int fib(int n) {
@@ -294,16 +297,38 @@ public class Dp {
         return strg[strg.length - 1];
     }
 
-    public static void maxSumNoAdjacentElement(int[] arr){
+    public static void maxSumNoAdjacentElement(int[] arr) {
         int exclude = 0;
         int include = arr[0];
 
-        for(int j=1;j<arr.length;j++){
-            int temp = Math.max(include,exclude);
-            include = exclude+arr[j];
+        for (int j = 1; j < arr.length; j++) {
+            int temp = Math.max(include, exclude);
+            include = exclude + arr[j];
             exclude = temp;
         }
 
-        System.out.println(Math.max(include,exclude));
+        System.out.println(Math.max(include, exclude));
+    }
+
+    public static void Lcs(String first, String second) {
+        int[][] strg = new int[first.length() + 1][second.length() + 1];
+
+        for (int i = 0; i < strg.length; i++) {
+            for (int j = 0; j < strg[0].length; j++) {
+                if (i == 0) {
+                    strg[i][j] = 0;
+                } else if (j == 0) {
+                    strg[i][j] = 0;
+                } else {
+                    if (first.charAt(i - 1) == second.charAt(j - 1)) {
+                        strg[i][j] = strg[i - 1][j - 1] + 1;
+                    } else {
+                        strg[i][j] = Math.max(strg[i - 1][j], strg[i][j - 1]);
+                    }
+                }
+            }
+        }
+
+        System.out.println(strg[strg.length-1][strg[0].length-1]);
     }
 }
