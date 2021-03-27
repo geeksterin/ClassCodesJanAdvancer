@@ -35,9 +35,10 @@ public class Dp {
         // System.out.println(coinChangeCombination(arr,7));
         // int[] arr = { 2, 1, 2, 2 };
         // maxSumNoAdjacentElement(arr);
-        String str1 = "AGGTAB";
-        String str2 = "GXTXAYB";
-        Lcs(str1,str2);
+        // String str1 = "AGGTAB";
+        // String str2 = "GXTXAYB";
+        // Lcs(str1,str2);
+        longestPalindromicSubstring("abccbc");
     }
 
     public static int fib(int n) {
@@ -330,5 +331,31 @@ public class Dp {
         }
 
         System.out.println(strg[strg.length-1][strg[0].length-1]);
+    }
+
+    public static void longestPalindromicSubstring(String str){
+        boolean[][] strg = new boolean[str.length()][str.length()];
+
+        int longestPalinSubstrLen = 0;
+
+        for(int gap=0;gap<str.length();gap++){
+            for(int i=0,j=gap;j<str.length();i++,j++){
+                if(gap==0){
+                    strg[i][j]=  true;
+                    longestPalinSubstrLen = 1;
+                }else if(gap==1){
+                    if(str.charAt(i)==str.charAt(j)){
+                        strg[i][j] = true;
+                        longestPalinSubstrLen = 2;
+                    }
+                }else{
+                    if(str.charAt(i)==str.charAt(j)){
+                        strg[i][j] = strg[i+1][j-1];
+                        longestPalinSubstrLen = j-i+1;
+                    }
+                }
+            }
+        }
+        System.out.println(longestPalinSubstrLen);
     }
 }
