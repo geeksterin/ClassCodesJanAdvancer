@@ -38,7 +38,7 @@ public class Dp {
         // String str1 = "AGGTAB";
         // String str2 = "GXTXAYB";
         // Lcs(str1,str2);
-        longestPalindromicSubstring("abccbc");
+        longestPalindromicSubstring("Geeks");
     }
 
     public static int fib(int n) {
@@ -330,28 +330,31 @@ public class Dp {
             }
         }
 
-        System.out.println(strg[strg.length-1][strg[0].length-1]);
+        System.out.println(strg[strg.length - 1][strg[0].length - 1]);
     }
 
-    public static void longestPalindromicSubstring(String str){
+    public static void longestPalindromicSubstring(String str) {
         boolean[][] strg = new boolean[str.length()][str.length()];
 
         int longestPalinSubstrLen = 0;
 
-        for(int gap=0;gap<str.length();gap++){
-            for(int i=0,j=gap;j<str.length();i++,j++){
-                if(gap==0){
-                    strg[i][j]=  true;
+        for (int gap = 0; gap < str.length(); gap++) {
+            for (int i = 0, j = gap; j < str.length(); i++, j++) {
+                if (gap == 0) {
+                    strg[i][j] = true;
                     longestPalinSubstrLen = 1;
-                }else if(gap==1){
-                    if(str.charAt(i)==str.charAt(j)){
+                } else if (gap == 1) {
+                    if (str.charAt(i) == str.charAt(j)) {
                         strg[i][j] = true;
                         longestPalinSubstrLen = 2;
                     }
-                }else{
-                    if(str.charAt(i)==str.charAt(j)){
-                        strg[i][j] = strg[i+1][j-1];
-                        longestPalinSubstrLen = j-i+1;
+                } else {
+                    if (str.charAt(i) == str.charAt(j)) {
+                        strg[i][j] = strg[i + 1][j - 1];
+                        if (strg[i + 1][j - 1] == true) {
+                            longestPalinSubstrLen = j - i + 1;
+                        }
+
                     }
                 }
             }
