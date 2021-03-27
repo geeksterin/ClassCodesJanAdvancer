@@ -38,7 +38,8 @@ public class Dp {
         // String str1 = "AGGTAB";
         // String str2 = "GXTXAYB";
         // Lcs(str1,str2);
-        longestPalindromicSubstring("Geeks");
+        // longestPalindromicSubstring("Geeks");
+        minCutPalindrome("abccbc");
     }
 
     public static int fib(int n) {
@@ -333,7 +334,7 @@ public class Dp {
         System.out.println(strg[strg.length - 1][strg[0].length - 1]);
     }
 
-    public static void longestPalindromicSubstring(String str) {
+    public static boolean[][] longestPalindromicSubstring(String str) {
         boolean[][] strg = new boolean[str.length()][str.length()];
 
         int longestPalinSubstrLen = 0;
@@ -360,5 +361,38 @@ public class Dp {
             }
         }
         System.out.println(longestPalinSubstrLen);
+        return strg;
+    }
+
+    public static void minCutPalindrome(String str) {
+        int[][] strg = new int[str.length()][str.length()];
+
+        // boolean[][] isPalin = longestPalindromicSubstring(str);
+        for (int gap = 0; gap < str.length(); gap++) {
+            for (int i = 0, j = gap; j < str.length(); j++, i++) {
+                if (gap == 0) {
+                    strg[i][j] = 0;
+                }
+                else if (gap == 1) {
+                    if (str.charAt(i) == str.charAt(j)) {
+                        strg[i][j] = 0;
+                    } else {
+                        strg[i][j] = 1;
+                    }
+                } else {
+                    if (str.charAt(i) == str.charAt(j) && strg[i + 1][j - 1] == 0) {
+                        strg[i][j] = 0;
+                    } else {
+                        int min = Integer.MAX_VALUE;
+                        for (int idash = i + 1, jdash = j - gap; jdash < j; idash++, jdash++) {
+                            min = Math.min(min, strg[i][jdash] + strg[idash][j] + 1);
+                        }
+
+                        strg[i][j] = min;
+                    }
+                }
+            }
+        }
+        System.out.println(strg[0][strg.length - 1]);
     }
 }
