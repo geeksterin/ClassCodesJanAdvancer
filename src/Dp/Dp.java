@@ -39,7 +39,10 @@ public class Dp {
         // String str2 = "GXTXAYB";
         // Lcs(str1,str2);
         // longestPalindromicSubstring("Geeks");
-        minCutPalindrome("abccbc");
+        // minCutPalindrome("abccbc");
+        int eggs = 2;
+        int floors = 100;
+        System.out.println(eggDrop(eggs,floors,new int[eggs+1][floors+1]));
     }
 
     public static int fib(int n) {
@@ -372,8 +375,7 @@ public class Dp {
             for (int i = 0, j = gap; j < str.length(); j++, i++) {
                 if (gap == 0) {
                     strg[i][j] = 0;
-                }
-                else if (gap == 1) {
+                } else if (gap == 1) {
                     if (str.charAt(i) == str.charAt(j)) {
                         strg[i][j] = 0;
                     } else {
@@ -394,5 +396,29 @@ public class Dp {
             }
         }
         System.out.println(strg[0][strg.length - 1]);
+    }
+
+    public static int eggDrop(int e, int f, int[][] strg) {
+        if (f == 1) {
+            return 1;
+        }
+
+        if (e == 1) {
+            return f;
+        }
+
+        if (f == 0) {
+            return 0;
+        }
+
+        if (strg[e][f] != 0) {
+            return strg[e][f];
+        }
+        int min = Integer.MAX_VALUE;
+        for (int i = 1; i <= f; i++) {
+            min = Math.min(min, Math.max(eggDrop(e - 1, i - 1, strg), eggDrop(e, f - i, strg)));
+        }
+
+        return strg[e][f] = min + 1;
     }
 }
