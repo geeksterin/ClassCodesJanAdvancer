@@ -40,9 +40,13 @@ public class Dp {
         // Lcs(str1,str2);
         // longestPalindromicSubstring("Geeks");
         // minCutPalindrome("abccbc");
-        int eggs = 2;
-        int floors = 100;
-        System.out.println(eggDrop(eggs,floors,new int[eggs+1][floors+1]));
+        // int eggs = 2;
+        // int floors = 100;
+        // System.out.println(eggDrop(eggs, floors, new int[eggs + 1][floors + 1]));
+        String str1 = "geek";
+        String str2 = "gesek";
+        System.out.println(editDistTabulation(str1,str2,str1.length(),str2.length()));
+        System.out.println(editDist(str1,str2,str1.length(),str2.length()));
     }
 
     public static int fib(int n) {
@@ -420,5 +424,43 @@ public class Dp {
         }
 
         return strg[e][f] = min + 1;
+    }
+
+    // without dp
+    public static int editDist(String str1,String str2, int m,int n){
+        if(m==0){
+            return n;
+        }
+
+        if(n==0){
+            return m;
+        }
+        if(str1.charAt(m-1)==str2.charAt(n-1)){
+            return editDist(str1,str2,m-1,n-1);
+        }else{
+           return 1 + Math.min(editDist(str1,str2,m,n-1),Math.min(editDist(str1, str2, m-1, n), editDist(str1,str2,m-1,n-1)));
+        }
+    }
+
+    public static int editDistTabulation(String str1, String str2, int m, int n) {
+        int[][] strg = new int[m + 1][n + 1];
+
+        for (int i = 0; i < strg.length; i++) {
+            for (int j = 0; j < strg[0].length; j++) {
+                if (i == 0) {
+                    strg[i][j] = j;
+                } else if (j == 0) {
+                    strg[i][j] = i;
+                } else {
+                    if (str1.charAt(i - 1) == str2.charAt(j - 1)) {
+                        strg[i][j] = strg[i - 1][j - 1];
+                    } else {
+                        strg[i][j] = Math.min(strg[i][j - 1], Math.min(strg[i - 1][j], strg[i - 1][j - 1])) + 1;
+                    }
+                }
+            }
+        }
+
+        return strg[strg.length - 1][strg[0].length - 1];
     }
 }
