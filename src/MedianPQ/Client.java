@@ -1,3 +1,5 @@
+package MedianPQ;
+
 public class Client {
     public static void main(String[] args){
         MedianPQ  mp = new MedianPQ();

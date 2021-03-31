@@ -1,3 +1,5 @@
+package MedianPQ;
+
 import java.util.*;
 
 public class MedianPQ{
