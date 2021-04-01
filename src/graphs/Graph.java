@@ -28,4 +28,12 @@ public class Graph{
 
         return vces.get(v1name).containsKey(v2name);
     }
+
+    public int countVertices(){
+
+    }
+
+    public int countEdges(){
+        
+    }
 }
