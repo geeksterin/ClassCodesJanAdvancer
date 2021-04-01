@@ -1,3 +1,5 @@
+package ownHashMap;
+
 public class Client {
     public static void main(String[] args){
         HashMap<Integer,Integer> hmap = new HashMap<>();
