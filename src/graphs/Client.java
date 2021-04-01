@@ -24,6 +24,7 @@ public class Client {
     //    g.display();
     //    System.out.println(g.countEdges());
     //    System.out.println(g.countVertices());
-    System.out.println(g.hasPath("A", "G"));
+    // System.out.println(g.hasPath("A", "G"));
+        g.printHasPath("A","G");
    } 
 }

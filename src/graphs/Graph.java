@@ -96,4 +96,29 @@ public class Graph{
 
         return false;
     }
+
+    public void printHasPath(String source,String destination){
+        HashSet<String> visited = new HashSet<>();
+        printHasPath(source, destination,visited,source);
+    }
+
+
+    private void printHasPath(String vname,String destination,HashSet<String> visited,String asf){
+
+        if(vname.equals(destination)){
+            System.out.println(asf);
+            return ;
+        }
+
+        visited.add(vname);
+        ArrayList<String> nbrs = new ArrayList<>(vces.get(vname).keySet());
+
+        for(String nbr:nbrs){
+            if(visited.contains(nbr)){
+                continue;
+            }
+            printHasPath(nbr,destination,visited,asf+nbr);           
+        }
+        visited.remove(vname);
+    }
 }
