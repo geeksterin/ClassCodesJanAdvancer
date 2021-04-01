@@ -30,10 +30,42 @@ public class Graph{
     }
 
     public int countVertices(){
-
+        return vces.size();
     }
 
     public int countEdges(){
-        
+        ArrayList<String> vnames = new ArrayList<>(vces.keySet());
+        int count =0;
+        for(String vname:vnames){
+            count+= vces.get(vname).size();
+        }
+
+        return count/2;
+    }
+
+    public void removeEdge(String v1name,String v2name){
+        if(containsEdge(v1name, v2name)){
+            vces.get(v1name).remove(v2name);
+            vces.get(v2name).remove(v1name);
+        }
+    }
+
+    public void removeVertex(String vname){
+        if(containsVertex(vname)){
+            ArrayList<String> nbrs = new ArrayList<>(vces.get(vname).keySet());
+            for(String nbr:nbrs){
+                removeEdge(nbr, vname);
+            }
+            vces.remove(vname);
+        }
+    }
+
+    public void display(){
+        System.out.println("----------------------------------------");
+        ArrayList<String> vnames = new ArrayList<>(vces.keySet());
+
+        for(String vname:vnames){
+            System.out.println(vname+"-"+vces.get(vname));
+        }
     }
 }
