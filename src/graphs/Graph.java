@@ -68,4 +68,32 @@ public class Graph{
             System.out.println(vname+"-"+vces.get(vname));
         }
     }
+
+    public boolean hasPath(String source,String destination){
+        HashSet<String> visited = new HashSet<>();
+        return hasPath(source, destination,visited);
+    }
+
+
+    private boolean hasPath(String vname,String destination,HashSet<String> visited){
+
+        if(vname.equals(destination)){
+            return true;
+        }
+
+        visited.add(vname);
+        ArrayList<String> nbrs = new ArrayList<>(vces.get(vname).keySet());
+
+        for(String nbr:nbrs){
+            if(visited.contains(nbr)){
+                continue;
+            }
+            boolean bl = hasPath(nbr,destination,visited);
+            if(bl==true){
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

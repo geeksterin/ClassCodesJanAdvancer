@@ -17,13 +17,13 @@ public class Client {
        g.addEdge("E", "F", 3);
        g.addEdge("F", "G", 3);
        g.addEdge("E", "G", 8);
-       g.display();
+    //    g.display();
     //    g.removeEdge("D", "E");
     //    g.display();
     //    g.removeVertex("D");
     //    g.display();
-       System.out.println(g.countEdges());
-       System.out.println(g.countVertices());
-
+    //    System.out.println(g.countEdges());
+    //    System.out.println(g.countVertices());
+    System.out.println(g.hasPath("A", "G"));
    } 
 }
