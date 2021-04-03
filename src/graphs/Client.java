@@ -13,10 +13,10 @@ public class Client {
        g.addEdge("A", "D", 40);
        g.addEdge("C", "B", 10);
        g.addEdge("C", "D", 10);
-       g.addEdge("D", "E", 2);
+      //  g.addEdge("D", "E", 2);
        g.addEdge("E", "F", 3);
-       g.addEdge("F", "G", 3);
-       g.addEdge("E", "G", 8);
+      //  g.addEdge("F", "G", 3);
+      //  g.addEdge("E", "G", 8);
     //    g.display();
     //    g.removeEdge("D", "E");
     //    g.display();
@@ -27,6 +27,9 @@ public class Client {
     // System.out.println(g.hasPath("A", "G"));
       //   g.printHasPath("A","G");
       //   g.printSmallestPW("A","G");
-      g.bfs("A", "G");
+      // g.bfs("A", "G");
+      // System.out.println("`````````````````````````````");
+      // g.dfs("A", "G");
+      g.gcc();
    } 
 }
