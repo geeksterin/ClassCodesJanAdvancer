@@ -121,4 +121,74 @@ public class Graph{
         }
         visited.remove(vname);
     }
+
+
+    private static String smallestPath;
+    private static int smallestWt;
+
+    public void printSmallestPW(String source,String destination){
+        HashSet<String> visited = new HashSet<>();
+        smallestPath = "";
+        smallestWt = Integer.MAX_VALUE;
+        printSmallestPW(source, destination,visited,source,0);
+        System.out.println(smallestPath+"->"+smallestWt);
+    }
+
+
+    private void printSmallestPW(String vname,String destination,HashSet<String> visited,String asf,int wt){
+
+        if(vname.equals(destination)){
+            if(smallestWt>wt){
+                smallestWt = wt;
+                smallestPath = asf;
+            }
+            return ;
+        }
+
+        visited.add(vname);
+        ArrayList<String> nbrs = new ArrayList<>(vces.get(vname).keySet());
+
+        for(String nbr:nbrs){
+            if(visited.contains(nbr)){
+                continue;
+            }
+            printSmallestPW(nbr,destination,visited,asf+nbr,wt+vces.get(vname).get(nbr));           
+        }
+        visited.remove(vname);
+    }
+
+    private class Tpair {
+        String v;
+        String p;
+        int w;
+
+        public Tpair(String v,String p,int w){
+            this.v = v;
+            this.p = p;
+            this .w = w;
+        }
+    }
+    public boolean bfs(String s,String d){
+        Tpair pair = new Tpair(s,s,0);
+
+        HashSet<String> visited = new HashSet<>();
+        LinkedList<Tpair> q = new LinkedList<>();
+        q.addLast(pair);
+        while(q.size()>0){
+            Tpair rem = q.removeFirst();
+            visited.add(rem.v);
+            System.out.println(rem.v+"@"+rem.p);
+            if(rem.v.equals(d)){
+                return true;
+            }
+            for(String n:vces.get(rem.v).keySet()){
+                if(visited.contains(n)==false){
+                    Tpair npair = new Tpair(n,rem.p+n,rem.w+vces.get(rem.v).get(n));
+                    q.addLast(npair);
+                }
+            }
+        }
+
+        return false;
+    }
 }
