@@ -241,4 +241,31 @@ public class Graph {
             System.out.println(s);
         }
     }
+
+    public boolean isCyclic(){
+        HashSet<String> visited = new HashSet<>();
+        for (String vertex : vces.keySet()) {
+            if(visited.contains(vertex)){
+                continue;
+            }
+            Tpair pair = new Tpair(vertex, vertex, 0);
+
+            LinkedList<Tpair> q = new LinkedList<>();
+            q.addLast(pair);
+            while (q.size() > 0) {
+                Tpair rem = q.removeFirst();
+                if (visited.contains(rem.v)) {
+                    return true;
+                }
+                visited.add(rem.v);
+                for (String n : vces.get(rem.v).keySet()) {
+                    if (visited.contains(n) == false) {
+                        Tpair npair = new Tpair(n, rem.p + n, rem.w + vces.get(rem.v).get(n));
+                        q.addLast(npair);
+                    }
+                }
+            }
+        }
+        return false;
+    }
 }
