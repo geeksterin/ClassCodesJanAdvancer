@@ -1,3 +1,7 @@
+package graphs;
+
+import util.Pair;
+
 import java.util.*;
 
 public class Graph {
@@ -8,7 +12,7 @@ public class Graph {
     }
 
     public void addVertex(String vname) {
-        if (containsVertex(vname) == false) {
+        if (!containsVertex(vname)) {
             vces.put(vname, new HashMap<>());
         }
     }
@@ -268,4 +272,55 @@ public class Graph {
         }
         return false;
     }
+
+    public Pair<String, Pair<String, Integer>> findMinimumEdge(String curr, Set<String> visited, String source, Integer cost) {
+
+        if(visited.contains(curr)) {
+            return new Pair<>(source, new Pair<>(curr, cost));
+        }
+
+        visited.add(curr);
+        HashMap<String, Integer> childs = this.vces.get(curr);
+        Pair<String, Pair<String, Integer>> result = new Pair<>("null", new Pair<>("null", Integer.MAX_VALUE));
+        for(Map.Entry<String, Integer> singleChild : childs.entrySet()) {
+            Pair<String, Pair<String, Integer>> currentMinimum =  findMinimumEdge(singleChild.getKey(), visited, curr, singleChild.getValue());
+            if(currentMinimum.getSecond().getSecond() < result.getSecond().getSecond()) {
+                result.setFirst(currentMinimum.getFirst());
+                result.getSecond().setFirst(currentMinimum.getSecond().getFirst());
+                result.getSecond().setSecond(currentMinimum.getSecond().getSecond());
+            }
+        }
+        return result;
+    }
+
+    public int calculateCost(String curr, HashSet<String> visited, Integer cost) {
+
+        if(visited.contains(curr))
+            return 0;
+
+        visited.add(curr);
+        int sum = cost;
+
+        HashMap<String, Integer> childs = vces.get(curr);
+
+        for(Map.Entry<String, Integer> singleChild : childs.entrySet()) {
+            sum+=calculateCost(singleChild.getKey(), visited, singleChild.getValue());
+        }
+        return sum;
+    }
+
 }
+
+//A, 1
+//B, 2
+
+//A - 0
+//B - 1
+
+//A, 1 - 0
+
+//B, 2 - 1
+
+//      A
+//    28  10
+//  B       C
