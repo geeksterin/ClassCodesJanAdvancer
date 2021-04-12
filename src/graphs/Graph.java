@@ -1,6 +1,4 @@
-package graphs;
-
-import util.Pair;
+import java.util.*;
 
 import java.util.*;
 
@@ -273,25 +271,25 @@ public class Graph {
         return false;
     }
 
-    public Pair<String, Pair<String, Integer>> findMinimumEdge(String curr, Set<String> visited, String source, Integer cost) {
+    // public Pair<String, Pair<String, Integer>> findMinimumEdge(String curr, Set<String> visited, String source, Integer cost) {
 
-        if(visited.contains(curr)) {
-            return new Pair<>(source, new Pair<>(curr, cost));
-        }
+    //     if(visited.contains(curr)) {
+    //         return new Pair<>(source, new Pair<>(curr, cost));
+    //     }
 
-        visited.add(curr);
-        HashMap<String, Integer> childs = this.vces.get(curr);
-        Pair<String, Pair<String, Integer>> result = new Pair<>("null", new Pair<>("null", Integer.MAX_VALUE));
-        for(Map.Entry<String, Integer> singleChild : childs.entrySet()) {
-            Pair<String, Pair<String, Integer>> currentMinimum =  findMinimumEdge(singleChild.getKey(), visited, curr, singleChild.getValue());
-            if(currentMinimum.getSecond().getSecond() < result.getSecond().getSecond()) {
-                result.setFirst(currentMinimum.getFirst());
-                result.getSecond().setFirst(currentMinimum.getSecond().getFirst());
-                result.getSecond().setSecond(currentMinimum.getSecond().getSecond());
-            }
-        }
-        return result;
-    }
+    //     visited.add(curr);
+    //     HashMap<String, Integer> childs = this.vces.get(curr);
+    //     Pair<String, Pair<String, Integer>> result = new Pair<>("null", new Pair<>("null", Integer.MAX_VALUE));
+    //     for(Map.Entry<String, Integer> singleChild : childs.entrySet()) {
+    //         Pair<String, Pair<String, Integer>> currentMinimum =  findMinimumEdge(singleChild.getKey(), visited, curr, singleChild.getValue());
+    //         if(currentMinimum.getSecond().getSecond() < result.getSecond().getSecond()) {
+    //             result.setFirst(currentMinimum.getFirst());
+    //             result.getSecond().setFirst(currentMinimum.getSecond().getFirst());
+    //             result.getSecond().setSecond(currentMinimum.getSecond().getSecond());
+    //         }
+    //     }
+    //     return result;
+    // }
 
     public int calculateCost(String curr, HashSet<String> visited, Integer cost) {
 
